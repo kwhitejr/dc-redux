@@ -5,6 +5,7 @@ import {
   scryRenderedDOMComponentsWithTag,
   Simulate
 } from 'react-addons-test-utils';
+import {List} from 'immutable';
 import {expect} from 'chai';
 
 import Filter from '../../src/components/Filter';
@@ -60,6 +61,27 @@ describe('Filter', () => {
     expect(buttons.length).to.equal(2);
     Simulate.click(buttons[0]);
     expect(chamberSelected).to.equal('house');
+  });
+
+  it('does update dom with prop changes', () => {
+    const chambers = List.of('house', 'senate');
+    const container = document.createElement('div');
+    let component = ReactDOM.render(
+      <Filter chambers={chambers} />,
+      container
+    );
+
+    let firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
+    expect(firstButton.textContent).to.equal('house');
+
+    const newChambers = chambers.set(0, 'parliament')
+    component = ReactDOM.render(
+      <Filter chambers={newChambers} />,
+      container
+    );
+
+    firstButton = scryRenderedDOMComponentsWithTag(component, 'button')[0];
+    expect(firstButton.textContent).to.equal('parliament');
 
   });
 
