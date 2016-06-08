@@ -11,7 +11,8 @@ export default React.createClass({
         <label key={entry}>
           <input
             type="checkbox"
-            defaultChecked={true} />
+            defaultChecked={true}
+            onChange={() => this.props.toggleFilter(entry)} />
             {entry}
         </label>
       )}

@@ -2,10 +2,11 @@
   "name": "dc-redux",
   "version": "1.0.0",
   "description": "District Crimes rebuilt with Redux",
-  "main": "index.js",
+  "main": "index.jsx",
   "dependencies": {
     "immutable": "^3.8.1",
     "react": "^15.1.0",
+    "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.1",
@@ -26,7 +27,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*.@(js|jsx)\"",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
