@@ -5,6 +5,10 @@ export default React.createClass({
     return this.props.crimeFilters || [];
   },
 
+  getChambers: function() {
+    return this.props.chambers || [];
+  },
+
   render: function() {
     return <div className="filter">
       {this.getFilters().map(entry =>
@@ -13,8 +17,14 @@ export default React.createClass({
             type="checkbox"
             defaultChecked={true}
             onChange={() => this.props.toggleFilter(entry)} />
-            {entry}
+          {entry}
         </label>
+      )}
+      {this.getChambers().map(entry =>
+        <button key={entry}
+                onClick={() => this.props.toggleChamber(entry)} >
+          {entry}
+        </button>
       )}
     </div>;
   }

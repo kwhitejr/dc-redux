@@ -22,7 +22,7 @@ describe('Filter', () => {
     expect(checkboxes[1].textContent).to.equal('Assault');
   });
 
-  it('should invoke callback when checked', () => {
+  it('should invoke callback when a box is checked', () => {
     let checked;
     const toggleFilter = (entry) => checked = entry;
     const component = renderIntoDocument(
@@ -34,6 +34,32 @@ describe('Filter', () => {
     expect(checkboxes.length).to.equal(2);
     Simulate.change(checkboxes[0]);
     expect(checked).to.equal('Theft');
+
+  });
+
+  it('renders two buttons for house and senate', () => {
+    const component = renderIntoDocument(
+      <Filter chambers={["house", "senate"]} />
+    );
+    const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
+
+    expect(buttons.length).to.equal(2);
+    expect(buttons[0].textContent).to.equal('house');
+    expect(buttons[1].textContent).to.equal('senate');
+  });
+
+  it('should invoke callback when button is clicked', () => {
+    let chamberSelected;
+    const toggleChamber = (entry) => chamberSelected = entry;
+    const component = renderIntoDocument(
+      <Filter chambers={["house", "senate"]}
+              toggleChamber={toggleChamber} />
+    );
+    const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
+
+    expect(buttons.length).to.equal(2);
+    Simulate.click(buttons[0]);
+    expect(chamberSelected).to.equal('house');
 
   });
 
