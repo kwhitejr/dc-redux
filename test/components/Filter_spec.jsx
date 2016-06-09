@@ -14,33 +14,39 @@ describe('Filter', () => {
 
   it('renders a series of checkboxes', () => {
     const component = renderIntoDocument(
-      <Filter crimeFilters={["Theft", "Assault"]} />
+      <Filter crimeFilters={[
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}]} />
     );
     const checkboxes = scryRenderedDOMComponentsWithTag(component, 'label');
 
     expect(checkboxes.length).to.equal(2);
-    expect(checkboxes[0].textContent).to.equal('Theft');
-    expect(checkboxes[1].textContent).to.equal('Assault');
+    expect(checkboxes[0].textContent).to.equal('theft');
+    expect(checkboxes[1].textContent).to.equal('assault');
   });
 
   it('should invoke callback when a box is checked', () => {
     let checked;
     const toggleFilter = (entry) => checked = entry;
     const component = renderIntoDocument(
-      <Filter crimeFilters={["Theft", "Assault"]}
+      <Filter crimeFilters={[
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}]}
               toggleFilter={toggleFilter} />
     );
     const checkboxes = scryRenderedDOMComponentsWithTag(component, 'input');
 
     expect(checkboxes.length).to.equal(2);
     Simulate.change(checkboxes[0]);
-    expect(checked).to.equal('Theft');
+    expect(checked).to.equal('theft');
 
   });
 
   it('renders two buttons for house and senate', () => {
     const component = renderIntoDocument(
-      <Filter chambers={["house", "senate"]} />
+      <Filter crimeFilters={[
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}]} />
     );
     const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
 
@@ -53,8 +59,10 @@ describe('Filter', () => {
     let chamberSelected;
     const toggleChamber = (entry) => chamberSelected = entry;
     const component = renderIntoDocument(
-      <Filter chambers={["house", "senate"]}
-              toggleChamber={toggleChamber} />
+      <Filter crimeFilters={[
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}]}
+        toggleChamber={toggleChamber} />
     );
     const buttons = scryRenderedDOMComponentsWithTag(component, 'button');
 
@@ -62,5 +70,6 @@ describe('Filter', () => {
     Simulate.click(buttons[0]);
     expect(chamberSelected).to.equal('house');
   });
+
 
 });

@@ -16,10 +16,11 @@ store.dispatch({
   type: 'SET_STATE',
   state: {
     chamber: 'house',
-    crimeFilters: {
-      theft: true,
-      assault: true
-    }
+    crimeFilters: [
+      {name: 'theft', checked: true},
+      {name: 'assault', checked: true},
+      {name: 'murder', checked: false}
+    ]
   }
 });
 

@@ -11,20 +11,20 @@ describe('reducer', () => {
       type: 'SET_STATE',
       state: Map({
         chamber: 'house',
-        crimeFilters: Map({
-          theft: true,
-          assault: true
-        })
+        crimeFilters: List.of(
+          Map({name: 'theft', checked: true}),
+          Map({name: 'assault', checked: true})
+        )
       })
     };
     const nextState = reducer(initialState, action);
 
     expect(nextState).to.equal(fromJS({
       chamber: 'house',
-      crimeFilters: {
-        theft: true,
-        assault: true
-      }
+      crimeFilters: [
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}
+      ]
     }));
   });
 
@@ -34,20 +34,20 @@ describe('reducer', () => {
       type: 'SET_STATE',
       state: {
         chamber: 'house',
-        crimeFilters: {
-          theft: true,
-          assault: true
-        }
+        crimeFilters: [
+          {name: 'theft', checked: true},
+          {name: 'assault', checked: true}
+        ]
       }
     };
     const nextState = reducer(initialState, action);
 
     expect(nextState).to.equal(fromJS({
       chamber: 'house',
-      crimeFilters: {
-        theft: true,
-        assault: true
-      }
+      crimeFilters: [
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}
+      ]
     }));
   });
 
@@ -56,30 +56,30 @@ describe('reducer', () => {
       type: 'SET_STATE',
       state: {
         chamber: 'house',
-        crimeFilters: {
-          theft: true,
-          assault: true
-        }
+        crimeFilters: [
+          {name: 'theft', checked: true},
+          {name: 'assault', checked: true}
+        ]
       }
     };
     const nextState = reducer(undefined, action);
 
     expect(nextState).to.equal(fromJS({
       chamber: 'house',
-      crimeFilters: {
-        theft: true,
-        assault: true
-      }
+      crimeFilters: [
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}
+      ]
     }));
   });
 
   it('handles TOGGLE_CHAMBER', () => {
     const initialState = fromJS({
       chamber: 'house',
-      crimeFilters: {
-        theft: true,
-        assault: true
-      }
+      crimeFilters: [
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}
+      ]
     });
     const action = {
       type: 'TOGGLE_CHAMBER',
@@ -89,10 +89,56 @@ describe('reducer', () => {
 
     expect(nextState).to.equal(fromJS({
       chamber: 'senate',
-      crimeFilters: {
-        theft: true,
-        assault: true
-      }
+      crimeFilters: [
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}
+      ]
+    }));
+  });
+
+  it('handles TOGGLE_CRIME true to false', () => {
+    const initialState = fromJS({
+      chamber: 'house',
+      crimeFilters: [
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}
+      ]
+    });
+    const action = {
+      type: 'TOGGLE_CRIME',
+      toggleCrime: 'theft'
+    };
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      chamber: 'house',
+      crimeFilters: [
+        {name: 'theft', checked: false},
+        {name: 'assault', checked: true}
+      ]
+    }));
+  });
+
+  it('handles TOGGLE_CRIME false to true', () => {
+    const initialState = fromJS({
+      chamber: 'house',
+      crimeFilters: [
+        {name: 'theft', checked: false},
+        {name: 'assault', checked: true}
+      ]
+    });
+    const action = {
+      type: 'TOGGLE_CRIME',
+      toggleCrime: 'theft'
+    };
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      chamber: 'house',
+      crimeFilters: [
+        {name: 'theft', checked: true},
+        {name: 'assault', checked: true}
+      ]
     }));
   });
 

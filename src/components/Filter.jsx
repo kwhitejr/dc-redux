@@ -7,18 +7,21 @@ import * as actionCreators from '../action_creators';
 export const Filter = React.createClass({
   mxins: [PureRenderMixin],
 
+  getFilters: function() {
+    return this.props.crimeFilters || [];
+  },
+
   render: function() {
-    const filters =['theft', 'assault'];
     const chambers = ['house', 'senate'];
 
     return <div className="filter">
-      {filters.map(crime =>
-        <label key={crime}>
+      {this.props.crimeFilters.map(entry =>
+        <label key={entry.name}>
           <input
             type="checkbox"
-            defaultChecked={true}
-            onChange={() => this.props.toggleFilter(crime)} />
-          {crime}
+            defaultChecked={entry.checked}
+            onChange={() => this.props.toggleFilter(entry.name)} />
+          {entry.name}
         </label>
       )}
       {chambers.map(entry =>
@@ -33,8 +36,8 @@ export const Filter = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    chambers: state.get('chambers'),
-    crimeFilters: state.get('crimeFilters')
+    chamber: state.get('chamber'),
+    crimeFilters: state.get('crimeFilters').toJSON()
   };
 }
 
