@@ -11,14 +11,20 @@ describe('reducer', () => {
       type: 'SET_STATE',
       state: Map({
         chamber: 'house',
-        crimeFilters: List.of('theft','assault')
+        crimeFilters: Map({
+          theft: true,
+          assault: true
+        })
       })
     };
     const nextState = reducer(initialState, action);
 
     expect(nextState).to.equal(fromJS({
       chamber: 'house',
-      crimeFilters: ['theft', 'assault']
+      crimeFilters: {
+        theft: true,
+        assault: true
+      }
     }));
   });
 
@@ -28,14 +34,20 @@ describe('reducer', () => {
       type: 'SET_STATE',
       state: {
         chamber: 'house',
-        crimeFilters: ['theft', 'assault']
+        crimeFilters: {
+          theft: true,
+          assault: true
+        }
       }
     };
     const nextState = reducer(initialState, action);
 
     expect(nextState).to.equal(fromJS({
       chamber: 'house',
-      crimeFilters: ['theft', 'assault']
+      crimeFilters: {
+        theft: true,
+        assault: true
+      }
     }));
   });
 
@@ -44,21 +56,30 @@ describe('reducer', () => {
       type: 'SET_STATE',
       state: {
         chamber: 'house',
-        crimeFilters: ['theft', 'assault']
+        crimeFilters: {
+          theft: true,
+          assault: true
+        }
       }
     };
     const nextState = reducer(undefined, action);
 
     expect(nextState).to.equal(fromJS({
       chamber: 'house',
-      crimeFilters: ['theft', 'assault']
+      crimeFilters: {
+        theft: true,
+        assault: true
+      }
     }));
   });
 
   it('handles TOGGLE_CHAMBER', () => {
     const initialState = fromJS({
       chamber: 'house',
-      crimeFilters: ['theft', 'assault']
+      crimeFilters: {
+        theft: true,
+        assault: true
+      }
     });
     const action = {
       type: 'TOGGLE_CHAMBER',
@@ -68,7 +89,10 @@ describe('reducer', () => {
 
     expect(nextState).to.equal(fromJS({
       chamber: 'senate',
-      crimeFilters: ['theft', 'assault']
+      crimeFilters: {
+        theft: true,
+        assault: true
+      }
     }));
   });
 

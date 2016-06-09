@@ -7,21 +7,18 @@ import * as actionCreators from '../action_creators';
 export const Filter = React.createClass({
   mxins: [PureRenderMixin],
 
-  getFilters: function() {
-    return this.props.crimeFilters || [];
-  },
-
   render: function() {
+    const filters =['theft', 'assault'];
     const chambers = ['house', 'senate'];
 
     return <div className="filter">
-      {this.getFilters().map(entry =>
-        <label key={entry}>
+      {filters.map(crime =>
+        <label key={crime}>
           <input
             type="checkbox"
             defaultChecked={true}
-            onChange={() => this.props.toggleFilter(entry)} />
-          {entry}
+            onChange={() => this.props.toggleFilter(crime)} />
+          {crime}
         </label>
       )}
       {chambers.map(entry =>
