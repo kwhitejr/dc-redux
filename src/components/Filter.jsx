@@ -1,7 +1,8 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import {connect} from 'react-redux';
 
-export default React.createClass({
+export const Filter = React.createClass({
   mxins: [PureRenderMixin],
 
   getFilters: function() {
@@ -32,3 +33,12 @@ export default React.createClass({
     </div>;
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    chambers: state.get('chambers'),
+    crimeFilters: state.get('crimeFilters')
+  };
+}
+
+export const FilterContainer = connect(mapStateToProps)(Filter);
