@@ -27,12 +27,12 @@ describe('Filter', () => {
 
   it('should invoke callback when a box is checked', () => {
     let checked;
-    const toggleFilter = (entry) => checked = entry;
+    const toggleCrime = (entry) => checked = entry;
     const component = renderIntoDocument(
       <Filter crimeFilters={[
         {name: 'theft', checked: true},
         {name: 'assault', checked: true}]}
-              toggleFilter={toggleFilter} />
+              toggleCrime={toggleCrime} />
     );
     const checkboxes = scryRenderedDOMComponentsWithTag(component, 'input');
 

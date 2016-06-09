@@ -20,7 +20,7 @@ export const Filter = React.createClass({
           <input
             type="checkbox"
             defaultChecked={entry.checked}
-            onChange={() => this.props.toggleFilter(entry.name)} />
+            onChange={() => this.props.toggleCrime(entry.name)} />
           {entry.name}
         </label>
       )}

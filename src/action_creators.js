@@ -11,3 +11,10 @@ export function toggleChamber(newChamber) {
     newChamber
   };
 }
+
+export function toggleCrime(toggleCrime) {
+  return {
+    type: 'TOGGLE_CRIME',
+    toggleCrime
+  };
+}
