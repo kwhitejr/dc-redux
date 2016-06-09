@@ -2,6 +2,8 @@ import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import {connect} from 'react-redux';
 
+import * as actionCreators from '../action_creators';
+
 export const Filter = React.createClass({
   mxins: [PureRenderMixin],
 
@@ -9,11 +11,9 @@ export const Filter = React.createClass({
     return this.props.crimeFilters || [];
   },
 
-  getChambers: function() {
-    return this.props.chambers || [];
-  },
-
   render: function() {
+    const chambers = ['house', 'senate'];
+
     return <div className="filter">
       {this.getFilters().map(entry =>
         <label key={entry}>
@@ -24,7 +24,7 @@ export const Filter = React.createClass({
           {entry}
         </label>
       )}
-      {this.getChambers().map(entry =>
+      {chambers.map(entry =>
         <button key={entry}
                 onClick={() => this.props.toggleChamber(entry)} >
           {entry}
@@ -41,4 +41,4 @@ function mapStateToProps(state) {
   };
 }
 
-export const FilterContainer = connect(mapStateToProps)(Filter);
+export const FilterContainer = connect(mapStateToProps, actionCreators)(Filter);

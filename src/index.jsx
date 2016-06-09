@@ -1,19 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory} from 'react-router';
-import {createStore} from 'redux';
+import {compose, createStore} from 'redux';
 import {Provider} from 'react-redux';
 
 import reducer from './reducer';
 import App from './components/App';
+
 import {FilterContainer} from './components/Filter';
 
-
-const store = createStore(reducer);
+const createStoreDevTools = compose(
+  window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
+const store = createStoreDevTools(reducer);
 store.dispatch({
   type: 'SET_STATE',
   state: {
-    chambers: ['house', 'senate'],
+    chamber: 'house',
     crimeFilters: ['theft', 'assault']
   }
 });
