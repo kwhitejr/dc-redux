@@ -33,12 +33,3 @@ export default React.createClass({
     </div>;
   }
 });
-
-// function mapStateToProps(state) {
-//   return {
-//     chamber: state.get('chamber'),
-//     crimeFilters: state.get('crimeFilters').toJSON()
-//   };
-// }
-
-// export const FilterContainer = connect(mapStateToProps, actionCreators)(Filter);

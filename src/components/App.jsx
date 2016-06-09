@@ -1,8 +1,28 @@
 import React from 'react';
 import {List} from 'immutable';
+import {connect} from 'react-redux';
 
-export default React.createClass({
+import Filter from './Filter';
+import District from './District';
+
+import * as actionCreators from '../action_creators';
+
+export const App = React.createClass({
   render: function() {
-    return this.props.children;
+    return <div>
+      <section>
+        <Filter {...this.props} />
+        <District {...this.props} />
+      </section>
+    </div>
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    chamber: state.get('chamber'),
+    crimeFilters: state.get('crimeFilters').toJSON()
+  };
+}
+
+export const AppContainer = connect(mapStateToProps, actionCreators)(App);

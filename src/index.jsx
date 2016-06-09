@@ -5,9 +5,9 @@ import {compose, createStore} from 'redux';
 import {Provider} from 'react-redux';
 
 import reducer from './reducer';
-import App from './components/App';
+// import App from './components/App';
 
-import {FilterContainer} from './components/Filter';
+import {AppContainer} from './components/App';
 
 const createStoreDevTools = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
@@ -28,8 +28,8 @@ store.dispatch({
 
 // const chambers = ['house', 'senate'];
 
-const routes = <Route component={App}>
-  <Route path="/" component={FilterContainer} />
+const routes = <Route>
+  <Route path="/" component={AppContainer} />
 </Route>;
 
 ReactDOM.render(
