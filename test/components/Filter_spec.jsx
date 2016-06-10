@@ -8,7 +8,7 @@ import {
 import {List} from 'immutable';
 import {expect} from 'chai';
 
-import {Filter} from '../../src/components/Filter';
+import Filter from '../../src/components/Filter';
 
 describe('Filter', () => {
 
