@@ -27,12 +27,14 @@ function toggleCrime(state, toggleCrime) {
 
 function changeDistrict(state, newDistrict) {
   const chamber = state.get('chamber');
-  const updatedItem = districtData[chamber].filter(district => {
-    return district.district_number === newDistrict;
-  });
+  const updatedItem = districtData[chamber]
+    .filter(district => {
+      return district.district_number === newDistrict;
+    })
+    .pop();
 
-  console.log(updatedItem[0]);
-  return state.set('districtInfo', Map(updatedItem[0]));
+  console.log(updatedItem);
+  return state.set('districtInfo', Map(updatedItem));
 }
 
 export default function(state = Map(), action) {
