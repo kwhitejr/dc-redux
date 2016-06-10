@@ -21,7 +21,8 @@ export const App = React.createClass({
 function mapStateToProps(state) {
   return {
     chamber: state.get('chamber'),
-    crimeFilters: state.get('crimeFilters').toJSON()
+    crimeFilters: state.get('crimeFilters').toJSON(),
+    districtInfo: state.get('districtInfo').toJSON()
   };
 }
 

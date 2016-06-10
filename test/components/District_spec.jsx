@@ -14,9 +14,11 @@ describe('District', () => {
 
   it('renders district data', () => {
     const component = renderIntoDocument(
-      <District crimeFilters={[
-        {name: 'theft', checked: true},
-        {name: 'assault', checked: true}]} />
+      <District districtInfo={
+        {
+
+        }
+      } />
     );
     const checkboxes = scryRenderedDOMComponentsWithTag(component, 'label');
 

@@ -1,35 +1,24 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-import {connect} from 'react-redux';
-
-import * as actionCreators from '../action_creators';
 
 export default React.createClass({
   mxins: [PureRenderMixin],
 
-  getFilters: function() {
-    return this.props.crimeFilters || [];
+  getDistrictInfo: function() {
+    return this.props.districtInfo || {};
   },
 
   render: function() {
-    const chambers = ['house', 'senate'];
+    const mailto = "mailto:" + this.getDistrictInfo().contact_email;
+    const districtInfo = this.getDistrictInfo();
+    console.log(mailto);
 
-    return <div className="filter">
-      {this.props.crimeFilters.map(entry =>
-        <label key={entry.name}>
-          <input
-            type="checkbox"
-            defaultChecked={entry.checked}
-            onChange={() => this.props.toggleCrime(entry.name)} />
-          {entry.name}
-        </label>
-      )}
-      {chambers.map(entry =>
-        <button key={entry}
-                onClick={() => this.props.toggleChamber(entry)} >
-          {entry}
-        </button>
-      )}
+    return <div className="district">
+      <img id="photo" src={districtInfo.politician_picture} height="151" width="121" />
+      <p>{districtInfo.politician_position} {districtInfo.politician_firstname} {districtInfo.politician_lastname}</p>
+      <p>{districtInfo.politician_officetype} District {districtInfo.district_number}</p>
+      <p>E-mail: <a href={mailto}>{districtInfo.contact_email}</a></p>
+      <p>Tel: {districtInfo.contact_phone}</p>
     </div>;
   }
 });
