@@ -11,7 +11,6 @@ export default React.createClass({
   render: function() {
     const mailto = "mailto:" + this.getDistrictInfo().contact_email;
     const districtInfo = this.getDistrictInfo();
-    console.log(mailto);
 
     return <div className="district">
       <img id="photo" src={districtInfo.politician_picture} height="151" width="121" />
@@ -19,6 +18,7 @@ export default React.createClass({
       <p>{districtInfo.politician_officetype} District {districtInfo.district_number}</p>
       <p>E-mail: <a href={mailto}>{districtInfo.contact_email}</a></p>
       <p>Tel: {districtInfo.contact_phone}</p>
+      <button onClick={() => this.props.changeDistrict(13)}>Trigger District Change</button>
     </div>;
   }
 });

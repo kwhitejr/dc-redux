@@ -1,5 +1,7 @@
 import {Map} from 'immutable';
 
+import districtData from '../district-data.json';
+
 function setState(state, newState) {
   return state.merge(newState);
 }
@@ -23,6 +25,16 @@ function toggleCrime(state, toggleCrime) {
   return state.update('crimeFilters', crimeFilters => crimeFilters.set(crimeToToggle, updatedItem));
 }
 
+function changeDistrict(state, newDistrict) {
+  const chamber = state.get('chamber');
+  const updatedItem = districtData[chamber].filter(district => {
+    return district.district_number === newDistrict;
+  });
+
+  console.log(updatedItem[0]);
+  return state.set('districtInfo', Map(updatedItem[0]));
+}
+
 export default function(state = Map(), action) {
   switch (action.type) {
   case 'SET_STATE':
@@ -31,6 +43,8 @@ export default function(state = Map(), action) {
     return toggleChamber(state, action.newChamber);
   case 'TOGGLE_CRIME':
     return toggleCrime(state, action.toggleCrime);
+  case 'CHANGE_DISTRICT':
+    return changeDistrict(state, action.newDistrict);
   }
   return state;
 }

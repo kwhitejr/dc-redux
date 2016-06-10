@@ -18,3 +18,10 @@ export function toggleCrime(toggleCrime) {
     toggleCrime
   };
 }
+
+export function changeDistrict(newDistrict) {
+  return {
+    type: 'CHANGE_DISTRICT',
+    newDistrict
+  };
+}
