@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory} from 'react-router';
-import {compose, createStore} from 'redux';
+import {compose, createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 
 import reducer from './reducer';
+import remoteActionMiddleware from './remote_action_middleware';
 // import App from './components/App';
 
 import {AppContainer} from './components/App';
 
 const createStoreDevTools = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
-const store = createStoreDevTools(reducer);
+const createStoreWithMiddleWare = applyMiddleware(
+  remoteActionMiddleware
+)(createStoreDevTools);
+const store = createStoreWithMiddleWare(reducer);
+
 store.dispatch({
   type: 'SET_STATE',
   state: {

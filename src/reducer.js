@@ -1,4 +1,5 @@
 import {Map} from 'immutable';
+import $ from 'jquery';
 
 import districtData from '../district-data.json';
 
@@ -27,14 +28,25 @@ function toggleCrime(state, toggleCrime) {
 
 function changeDistrict(state, newDistrict) {
   const chamber = state.get('chamber');
-  const updatedItem = districtData[chamber]
-    .filter(district => {
-      return district.district_number === newDistrict;
-    })
-    .pop();
 
-  console.log(updatedItem);
-  return state.set('districtInfo', Map(updatedItem));
+  $.ajax({
+    type: 'POST',
+    url: '/district',
+    body: state => ({
+      chamber: state.chamber,
+      newDistrict: state.newDistrict
+    })
+  });
+
+  // const chamber = state.get('chamber');
+  // const updatedItem = districtData[chamber]
+  //   .filter(district => {
+  //     return district.district_number === newDistrict;
+  //   })
+  //   .pop();
+
+  // console.log(updatedItem);
+  // return state.set('districtInfo', Map(updatedItem));
 }
 
 export default function(state = Map(), action) {
