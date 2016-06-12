@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import Filter from './Filter';
 import District from './District';
+import Map from './Map';
 
 import * as actionCreators from '../action_creators';
 
@@ -13,6 +14,7 @@ export const App = React.createClass({
       <section>
         <Filter {...this.props} />
         <District {...this.props} />
+        <Map {...this.props} />
       </section>
     </div>
   }

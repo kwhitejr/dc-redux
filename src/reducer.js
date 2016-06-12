@@ -31,9 +31,6 @@ function getDistrict(state, districtNumber, chamber) {
 }
 
 function changeDistrict(state, newDistrict) {
-  const chamber = state.get('chamber');
-  console.log('changeDistrict triggered');
-  console.log(newDistrict);
   // fetch('http://localhost:3000/district', {
   //   method: 'POST',
   //   headers: {

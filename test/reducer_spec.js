@@ -181,7 +181,41 @@ describe('reducer', () => {
     });
     const action = {
       type: 'CHANGE_DISTRICT',
-      newDistrict: 13
+      newDistrict: {
+        legislator_number: 28,
+        legislator_year: "2016",
+        legislator_type: "State",
+        politician_officetype: "Senate",
+        politician_position: "Senator",
+        politician_party: "Democrat",
+        politician_picture: "http://www.capitol.hawaii.gov/Members/Images/RepSenPhotos/chun_oakland.jpg",
+        politician_firstname: "Suzanne",
+        politician_lastname: "Chun Oakland",
+        address_street: "Hawaii State Capitol",
+        address_room: "226",
+        contact_phone: "808-586-6130",
+        contact_fax: "808-586-6131",
+        contact_email: "senchunoakland@capitol.hawaii.gov",
+        contact_links: "http://www.capitol.hawaii.gov/memberpage.aspx?member=chunoakland&year=2016",
+        district_number: 13,
+        neighborhoods: [
+          "Liliha",
+          "Palama",
+          "Iwilei",
+          "Kalihi",
+          "Nu‘uanu",
+          "Pacific Heights",
+          "Pauoa",
+          "Lower Tantalus",
+          "Downtown"
+        ],
+        politician_committee: [
+          "Human Services",
+          "Education",
+          "Transportation and Energy",
+          "Ways and Means"
+        ]
+      }
     };
     const nextState = reducer(initialState, action);
 
