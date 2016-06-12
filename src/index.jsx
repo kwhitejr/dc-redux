@@ -20,7 +20,7 @@ const store = createStoreWithMiddleWare(reducer);
 store.dispatch({
   type: 'SET_STATE',
   state: {
-    chamber: 'house',
+    chamber: 'senate',
     crimeFilters: [
       {name: 'theft', checked: true},
       {name: 'assault', checked: true},

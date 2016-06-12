@@ -34,7 +34,16 @@ var District = mongoose.model('District', districtSchema);
 var app = express();
 
 app.use(express.static(path.resolve(__dirname, './dist')));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Headers", "Content-Type");
+        res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+        next();
+    });
+
 
 app.route('/')
   .get(function (req, res) {
@@ -43,18 +52,19 @@ app.route('/')
 
 app.route('/district')
   .post(function (req, res) {
+    console.log('body', req.body);
     var chamber = req.body.chamber;
-    var newDistrict = req.body.newDistrict;
+    var districtNumber = req.body.districtNumber;
 
-    if (!chamber || !newDistrict) {
+    if (!chamber || !districtNumber) {
       return res.status(400).send({ message: 'Chamber and/or District Number missing.'});
     }
 
-    District.findOne({ 'chamber': chamber, 'district_number': newDistrict }, function (err, district) {
+    District.findOne({ 'chamber': chamber, 'district_number': districtNumber }, function (err, district) {
       if (err) {
         console.error(err);
       }
-      console.log(district);
+      console.log('response', district);
       res.json(district);
     });
   });

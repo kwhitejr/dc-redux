@@ -1,5 +1,5 @@
 import {Map} from 'immutable';
-import $ from 'jquery';
+import fetch from 'isomorphic-fetch';
 
 import districtData from '../district-data.json';
 
@@ -26,17 +26,44 @@ function toggleCrime(state, toggleCrime) {
   return state.update('crimeFilters', crimeFilters => crimeFilters.set(crimeToToggle, updatedItem));
 }
 
+function getDistrict(state, districtNumber, chamber) {
+  console.log('getDistrict triggered');
+}
+
 function changeDistrict(state, newDistrict) {
   const chamber = state.get('chamber');
+  console.log('changeDistrict triggered');
+  console.log(newDistrict);
+  // fetch('http://localhost:3000/district', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     chamber: chamber,
+  //     newDistrict: newDistrict
+  //   }),
+  // })
+  // .then(response => {
+  //   console.log(response);
+  //   response.json();
+  // })
+  // .then(json => {
+  //   console.log(json);
+  //   state.set('districtInfo', Map(json));
+  // });
 
-  $.ajax({
-    type: 'POST',
-    url: '/district',
-    body: state => ({
-      chamber: state.chamber,
-      newDistrict: state.newDistrict
-    })
-  });
+  // dispatch({
+  //   type: 'CHANGE_DISTRICT',
+  //   url: 'http://localhost:3000/district',
+  //   method: 'POST',
+  //   body: {
+  //     chamber: chamber,
+  //     newDistrict: newDistrict
+  //   },
+  //   cb: response => console.log('finished!', response)
+  // });
 
   // const chamber = state.get('chamber');
   // const updatedItem = districtData[chamber]
@@ -46,7 +73,7 @@ function changeDistrict(state, newDistrict) {
   //   .pop();
 
   // console.log(updatedItem);
-  // return state.set('districtInfo', Map(updatedItem));
+  return state.set('districtInfo', Map(newDistrict));
 }
 
 export default function(state = Map(), action) {
@@ -57,6 +84,8 @@ export default function(state = Map(), action) {
     return toggleChamber(state, action.newChamber);
   case 'TOGGLE_CRIME':
     return toggleCrime(state, action.toggleCrime);
+  case 'GET_DISTRICT':
+    return getDistrict(state, action.districtNumber, action.chamber);
   case 'CHANGE_DISTRICT':
     return changeDistrict(state, action.newDistrict);
   }

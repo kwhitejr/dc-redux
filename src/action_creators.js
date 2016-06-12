@@ -25,3 +25,18 @@ export function changeDistrict(newDistrict) {
     newDistrict
   };
 }
+
+export function getDistrict(districtNumber, chamber) {
+  return {
+    type: 'GET_DISTRICT',
+    url: 'http://localhost:3000/district',
+    method: 'POST',
+    body: {
+      chamber: chamber,
+      districtNumber: districtNumber
+    },
+    cb: (response, dispatch) => dispatch(changeDistrict(response)),
+    districtNumber,
+    chamber
+  };
+}
