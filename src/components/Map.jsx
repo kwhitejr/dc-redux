@@ -4,6 +4,7 @@ import L from 'leaflet';
 
 import config from '../../config';
 import senateGeoJSON from '../assets/hssd.geo.json';
+import houseGeoJSON from '../assets/hshd.geo.json';
 
 let map;
 let geoJsonLayer;
@@ -89,11 +90,22 @@ export default React.createClass({
   },
 
   addGeoJsonToMap: function () {
-    geoJsonLayer = L.geoJson(senateGeoJSON, {
+    if (geoJsonLayer) {
+      geoJsonLayer.clearLayers();
+    }
+
+    geoJsonLayer = L.geoJson(this.currentChamberGeoJson(this.props.chamber), {
         onEachFeature: this.onEachFeature,
         style: this.geoJsonStyle() // (null, chamber)
       })
       .addTo(map);
+  },
+
+  currentChamberGeoJson: function(chamber) {
+    switch (chamber) {
+      case 'senate': return senateGeoJSON;
+      case 'house': return houseGeoJSON;
+    }
   },
 
   geoJsonStyle: function () {
@@ -135,7 +147,6 @@ export default React.createClass({
 
   clickFunction: function (e) {
     var districtNumber = e.target.feature.properties.objectid;
-    console.log(districtNumber);
     var chamber = this.props.chamber;
 
     this.props.getDistrict(districtNumber, chamber);
