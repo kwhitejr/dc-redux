@@ -5,6 +5,8 @@ import L from 'leaflet';
 import config from '../../config';
 import senateGeoJSON from '../assets/hssd.geo.json';
 
+let map;
+let geoJsonLayer;
 const _config = {
   params: {
     center: [21.477351, -157.962799],
@@ -75,12 +77,69 @@ export default React.createClass({
     this.createMap();
   },
 
+  componentDidUpdate: function() {
+    this.addGeoJsonToMap();
+  },
+
   createMap: function () {
     const mapElement = ReactDOM.findDOMNode(this).querySelectorAll('#map')[0];
-    console.log(typeof(mapElement));
-    const map = L.map(mapElement, _config.params);
+    map = L.map(mapElement, _config.params);
 
     L.tileLayer(_config.tileLayer.url, _config.tileLayer.params).addTo(map);
+  },
+
+  addGeoJsonToMap: function () {
+    geoJsonLayer = L.geoJson(senateGeoJSON, {
+        onEachFeature: this.onEachFeature,
+        style: this.geoJsonStyle() // (null, chamber)
+      })
+      .addTo(map);
+  },
+
+  geoJsonStyle: function () {
+    return {
+      "fillColor": "#0000ff",
+      "color": "#ffffff",
+      "opacity": 1,
+      "weight": 1,
+      "fillOpacity": 0.7
+    };
+  },
+
+  onEachFeature: function (feature, layer) {
+    layer.on({
+      mouseover: this.highlightFeature,
+      mouseout: this.resetHighlight,
+      click: this.clickFunction
+    });
+  },
+
+  highlightFeature: function (e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera) {
+        layer.bringToFront();
+    }
+  },
+
+  resetHighlight: function (e) {
+    geoJsonLayer.resetStyle(e.target);
+  },
+
+  clickFunction: function (e) {
+    var districtNumber = e.target.feature.properties.objectid;
+    console.log(districtNumber);
+    var chamber = this.props.chamber;
+
+    this.props.getDistrict(districtNumber, chamber);
+
   },
 
   render: function () {
