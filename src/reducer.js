@@ -1,7 +1,4 @@
-import {Map} from 'immutable';
-import fetch from 'isomorphic-fetch';
-
-import districtData from '../district-data.json';
+import {Map, List} from 'immutable';
 
 function setState(state, newState) {
   return state.merge(newState);
@@ -30,48 +27,59 @@ function getDistrict(state, districtNumber, chamber) {
   console.log('getDistrict triggered');
 }
 
-function changeDistrict(state, newDistrict) {
-  // fetch('http://localhost:3000/district', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     chamber: chamber,
-  //     newDistrict: newDistrict
-  //   }),
-  // })
-  // .then(response => {
-  //   console.log(response);
-  //   response.json();
-  // })
-  // .then(json => {
-  //   console.log(json);
-  //   state.set('districtInfo', Map(json));
-  // });
-
-  // dispatch({
-  //   type: 'CHANGE_DISTRICT',
-  //   url: 'http://localhost:3000/district',
-  //   method: 'POST',
-  //   body: {
-  //     chamber: chamber,
-  //     newDistrict: newDistrict
-  //   },
-  //   cb: response => console.log('finished!', response)
-  // });
-
-  // const chamber = state.get('chamber');
-  // const updatedItem = districtData[chamber]
-  //   .filter(district => {
-  //     return district.district_number === newDistrict;
-  //   })
-  //   .pop();
-
-  // console.log(updatedItem);
-  return state.set('districtInfo', Map(newDistrict));
+function changeDistrict(state, newDistrictInfo) {
+  return state.set('districtInfo', Map(newDistrictInfo));
 }
+
+function setCrimeData(state, data) {
+  return state.set('allCrimeData', data);
+}
+
+function filterByCrimeType(state, filters) {
+  const crimeData = state.get('allCrimeData').toJSON();
+  const allCrimeData = crimeData[0];
+  console.log(filters);
+  const checkedCrimes = [];
+
+  filters
+    .filter(function (crime) {
+      return crime.checked === true;
+    })
+    .forEach(function (crime) {
+      checkedCrimes.push(crime.label);
+    });
+
+
+  const filteredCrime = allCrimeData.filter(function (crimeGlob) {
+    return checkedCrimes.indexOf(crimeGlob.type) > -1;
+  });
+
+  /*** Reducer, sort by district ***/
+  var initialValue = {};
+
+  var reducer = function(newObj, crimeGlob) {
+    // total crimes
+    if (!newObj[crimeGlob.district]) {
+      newObj[crimeGlob.district] = {
+        total: parseInt(crimeGlob.count)
+      };
+    } else {
+      newObj[crimeGlob.district].total += parseInt(crimeGlob.count);
+    }
+    return newObj;
+  };
+  var result = filteredCrime.reduce(reducer, initialValue);
+
+  console.log(result);
+
+  return state.set('crimesFilteredByDistrict', Map(result));
+
+}
+
+// function sortCrimesByDistrict(state) {
+//   const filteredCrime = filterByCrimeType(state);
+//   console.log(filteredCrime);
+// }
 
 export default function(state = Map(), action) {
   switch (action.type) {
@@ -85,6 +93,12 @@ export default function(state = Map(), action) {
     return getDistrict(state, action.districtNumber, action.chamber);
   case 'CHANGE_DISTRICT':
     return changeDistrict(state, action.newDistrict);
+  case 'SET_CRIME_DATA':
+    return setCrimeData(state, action.data);
+  case 'FILTER_CRIMES_BY_TYPE':
+    return filterByCrimeType(state, action.filters);
+  case 'SORT_BY_DISTRICT':
+    return sortCrimesByDistrict(state);
   }
   return state;
 }

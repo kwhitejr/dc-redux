@@ -13,17 +13,19 @@ let senateCrimeData;
 export const App = React.createClass({
 
   componentDidMount: function () {
-    this.loadSenateCrimes();
+    this.loadCrimes('senate');
+    // this.loadCrimes('house');
   },
 
-  loadSenateCrimes: function () {
+  loadCrimes: function (chamber) {
     $.ajax({
-      url: 'http://localhost:3000/senatecrimequery',
+      url: 'http://localhost:3000/'+chamber+'crimequery',
       method: "GET",
       dataType: "json",
       success: (data) => {
-        senateCrimeData = data;
+        senateCrimeData = data[0];
         console.log(senateCrimeData);
+        this.props.setCrimeData(List.of(data[0]));
       },
       failure: function (err) {
         console.log(err);
@@ -46,7 +48,8 @@ function mapStateToProps(state) {
   return {
     chamber: state.get('chamber'),
     crimeFilters: state.get('crimeFilters').toJSON(),
-    districtInfo: state.get('districtInfo').toJSON()
+    districtInfo: state.get('districtInfo').toJSON(),
+    allCrimeData: state.get('allCrimeData').toJSON()
   };
 }
 

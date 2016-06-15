@@ -22,9 +22,11 @@ store.dispatch({
   state: {
     chamber: 'senate',
     crimeFilters: [
-      {name: 'theft', checked: true},
-      {name: 'assault', checked: true},
-      {name: 'murder', checked: false}
+      {name: 'Theft', label: 'THEFT/LARCENY', checked: true},
+      {name: 'Vehicle Break-in', label: 'VEHICLE BREAK-IN/THEFT', checked: true},
+      {name: 'Vandalism', label: 'VANDALISM', checked: false},
+      {name: 'Motor Vehicle Theft', label: 'MOTOR VEHICLE THEFT', checked: false},
+      {name: 'Burglary', label: 'BURGLARY', checked: false}
     ],
     districtInfo: {
       "legislator_number": 28,
@@ -58,7 +60,9 @@ store.dispatch({
         "Economic Development, Environment, and Technology",
         "Public Safety, Intergovernmental, and Military Affairs"
       ]
-    }
+    },
+    allCrimeData: [],
+    crimesFilteredByDistrict: []
   }
 });
 

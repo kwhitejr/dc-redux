@@ -89,6 +89,24 @@ app.get('/senatecrimequery', function (req, res) {
   });
 });
 
+app.get('/housecrimequery', function (req, res) {
+
+  db.crime.sequelize.query(
+    'SELECT ' +
+      '"type", "houseDistrict" AS "district", COUNT("crime"."type") AS "count", ' +
+      'to_timestamp(floor((extract("epoch" from date) / 604800 )) * 604800) ' +
+    'FROM ' +
+      '"crimes" AS "crime" ' +
+    'GROUP BY ' +
+      '"type", "district", "to_timestamp" ' +
+    'ORDER BY ' +
+      'to_timestamp'
+  )
+  .then(function (results) {
+    res.json(results);
+  });
+});
+
 db.sequelize.sync();
 
 var mongodb = mongoose.connection;

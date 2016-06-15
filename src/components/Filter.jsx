@@ -27,6 +27,8 @@ export default React.createClass({
           {entry}
         </button>
       )}
+      <button onClick={() => this.props.filterByCrimeType(this.props.crimeFilters)}>Filter Crimes
+      </button>
     </div>;
   }
 });

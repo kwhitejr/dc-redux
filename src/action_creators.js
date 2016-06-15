@@ -40,3 +40,23 @@ export function getDistrict(districtNumber, chamber) {
     chamber
   };
 }
+
+export function setCrimeData(data) {
+  return {
+    type: 'SET_CRIME_DATA',
+    data
+  };
+}
+
+export function filterByCrimeType(filters) {
+  return {
+    type: 'FILTER_CRIMES_BY_TYPE',
+    filters
+  };
+}
+
+export function sortCrimesByDistrict() {
+  return {
+    type: 'SORT_BY_DISTRICT'
+  };
+}

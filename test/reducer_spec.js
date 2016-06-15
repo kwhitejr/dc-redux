@@ -259,4 +259,8 @@ describe('reducer', () => {
     }));
   });
 
+  it('handles UPDATE_MAP_CRIME_DATA', () => {
+
+  });
+
 });
