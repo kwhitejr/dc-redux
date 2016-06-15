@@ -8,7 +8,29 @@ import Map from './Map';
 
 import * as actionCreators from '../action_creators';
 
+let senateCrimeData;
+
 export const App = React.createClass({
+
+  componentDidMount: function () {
+    this.loadSenateCrimes();
+  },
+
+  loadSenateCrimes: function () {
+    $.ajax({
+      url: 'http://localhost:3000/senatecrimequery',
+      method: "GET",
+      dataType: "json",
+      success: (data) => {
+        senateCrimeData = data;
+        console.log(senateCrimeData);
+      },
+      failure: function (err) {
+        console.log(err);
+      }
+    });
+  },
+
   render: function() {
     return <div>
       <section>

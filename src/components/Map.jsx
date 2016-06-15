@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import L from 'leaflet';
+// import L from 'leaflet';
 
 import config from '../../config';
 import senateGeoJSON from '../assets/hssd.geo.json';

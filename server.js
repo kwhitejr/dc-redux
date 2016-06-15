@@ -2,6 +2,8 @@ var express =       require('express'),
     path =          require('path'),
     bodyParser =    require('body-parser'),
     mongoose =      require('mongoose'),
+    db =            require('./models'),
+    sequelize =     require('sequelize'),
     config =        require('./config');
 
 //mongodb://127.0.0.1:27017/podcast
@@ -69,9 +71,29 @@ app.route('/district')
     });
   });
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+app.get('/senatecrimequery', function (req, res) {
+
+  db.crime.sequelize.query(
+    'SELECT ' +
+      '"type", "senateDistrict" AS "district", COUNT("crime"."type") AS "count", ' +
+      'to_timestamp(floor((extract("epoch" from date) / 604800 )) * 604800) ' +
+    'FROM ' +
+      '"crimes" AS "crime" ' +
+    'GROUP BY ' +
+      '"type", "district", "to_timestamp" ' +
+    'ORDER BY ' +
+      'to_timestamp'
+  )
+  .then(function (results) {
+    res.json(results);
+  });
+});
+
+db.sequelize.sync();
+
+var mongodb = mongoose.connection;
+mongodb.on('error', console.error.bind(console, 'connection error:'));
+mongodb.once('open', function () {
   var server = app.listen(3000, function() {
     console.log('Listening to port', 3000);
   });
