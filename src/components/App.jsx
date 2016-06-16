@@ -17,6 +17,10 @@ export const App = React.createClass({
     // this.loadCrimes('house');
   },
 
+  componentDidUpdate: function () {
+    // this.props.filterByCrimeType(this.props.crimeFilters);
+  },
+
   loadCrimes: function (chamber) {
     $.ajax({
       url: 'http://localhost:3000/'+chamber+'crimequery',

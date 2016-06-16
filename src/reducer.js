@@ -38,7 +38,6 @@ function setCrimeData(state, data) {
 function filterByCrimeType(state, filters) {
   const crimeData = state.get('allCrimeData').toJSON();
   const allCrimeData = crimeData[0];
-  console.log(filters);
   const checkedCrimes = [];
 
   filters
