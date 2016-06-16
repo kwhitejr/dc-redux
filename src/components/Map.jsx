@@ -98,31 +98,16 @@ export default React.createClass({
     var _this = this;
 
     geoJsonLayer = L.geoJson(this.currentChamberGeoJson(this.props.chamber), {
-        onEachFeature: this.onEachFeature,
-        // style: this.geoJsonStyle.bind(null, this) // (null, chamber)
-        style: {
-          "fillColor": "#707070",
-          "color": "#ffffff",
-          "opacity": 1,
-          "weight": 1,
-          "fillOpacity": 0.7
-        },
-        // style: function (feature) {
-        //   if (_this.props.crimesFilteredByDistrict) {
-        //     const val = _this.props.crimesFilteredByDistrict[feature.properties.objectid].total || undefined;
-        //     console.log(val);
-        //     const crimeLevels = _config.crimeLevels[this.props.chamber];
-        //     const districtColor = _config.colors[this.props.chamber];
-
-        //     switch (val) {
-        //       case val >= crimeLevels.level3 : return {fillColor: districtColor.level3};
-        //       case val >= crimeLevels.level1 : return {fillColor: districtColor.level1};
-        //       case val === undefined : return {fillColor: '#707070'};
-        //     }
-        //   }
-        // }
-      })
-      .addTo(map);
+      onEachFeature: this.onEachFeature,
+      style: {
+        "fillColor": "#707070",
+        "color": "#ffffff",
+        "opacity": 1,
+        "weight": 1,
+        "fillOpacity": 0.7
+      }
+    })
+    .addTo(map);
   },
 
   currentChamberGeoJson: function(chamber) {
@@ -132,34 +117,13 @@ export default React.createClass({
     }
   },
 
-  geoJsonStyle: function (feature) {
-    // if (!(this.props.crimesFilteredByDistrict[feature.properties.objectid])) {
-    //   feature.isEmpty = true;
-      console.log(feature);
-      return {
-        "fillColor": "#707070",
-        "color": "#ffffff",
-        "opacity": 1,
-        "weight": 1,
-        "fillOpacity": 0.7
-      };
-    // }
-    // const totalCrimesInDistrict = this.props.crimesFilteredByDistrict[feature.properties.objectid].total;
-    // console.log(totalCrimesInDistrict);
-    // feature.isEmpty = false;
-    // return {
-    //   "fillColor": "#0000ff",
-    //   "color": "#ffffff",
-    //   "opacity": 1,
-    //   "weight": 1,
-    //   "fillOpacity": 0.7
-    // };
-  },
+  // geoJsonStyle: function (feature) {
 
-  getFillColor: function () {
+  // },
 
-    // console.log(totalCrimesInDistrict);
-  },
+  // getFillColor: function (feature) {
+
+  // },
 
   onEachFeature: function (feature, layer) {
     layer.on({
