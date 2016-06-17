@@ -21,11 +21,13 @@ export function toggleCrime(crime) {
 
 export function toggleAndFilter(crime) {
 
-  return function(dispatch) {
+  return (dispatch) => {
 
     dispatch(toggleCrime(crime));
 
     dispatch(filterByCrimeType());
+
+    dispatch(sortCrimesByDate());
   };
 }
 
@@ -36,6 +38,7 @@ export function changeDistrict(newDistrict) {
   };
 }
 
+// refactor this to use thunk --> 'fetchDistrict'
 export function getDistrict(districtNumber, chamber) {
   return {
     type: 'GET_DISTRICT',
@@ -64,8 +67,15 @@ export function filterByCrimeType() {
     };
 }
 
-export function sortCrimesByDistrict() {
+export function sortCrimesByDate() {
+    return {
+      type: 'SORT_BY_DATE'
+    };
+}
+
+export function sortCrimesByDistrict(filteredCrimes) {
   return {
-    type: 'SORT_BY_DISTRICT'
+    type: 'SORT_BY_DISTRICT',
+    filteredCrimes
   };
 }

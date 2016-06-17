@@ -52,7 +52,7 @@ function filterByCrimeType(state) {
     });
 
 
-  const filteredCrime = allCrimeData.filter(function (crimeGlob) {
+  const allCrimeDataFiltered = allCrimeData.filter(function (crimeGlob) {
     return checkedCrimes.indexOf(crimeGlob.type) > -1;
   });
 
@@ -70,7 +70,7 @@ function filterByCrimeType(state) {
     }
     return newObj;
   };
-  var result = filteredCrime.reduce(reducer, initialValue);
+  var result = allCrimeDataFiltered.reduce(reducer, initialValue);
 
   console.log(result);
 
@@ -78,10 +78,66 @@ function filterByCrimeType(state) {
 
 }
 
-// function sortCrimesByDistrict(state) {
-//   const filteredCrime = filterByCrimeType(state);
-//   console.log(filteredCrime);
-// }
+function sortCrimesByDate(state) {
+  const crimeData = state.get('allCrimeData').toJSON();
+  const allCrimeData = crimeData[0];
+  const checkedCrimes = [];
+  const filters = state.get('crimeFilters').toJSON();
+  console.log(filters);
+
+  filters
+    .filter(function (crime) {
+      return crime.checked === true;
+    })
+    .forEach(function (crime) {
+      checkedCrimes.push(crime.label);
+    });
+
+
+  const allCrimeDataFiltered = allCrimeData.filter(function (crimeGlob) {
+    return checkedCrimes.indexOf(crimeGlob.type) > -1;
+  });
+
+  var initialValue = {};
+
+  var reducer = function(newObj, crimeGlob) {
+    // total crimes
+    if (!newObj[crimeGlob.to_timestamp]) {
+      newObj[crimeGlob.to_timestamp] = {
+        total: parseInt(crimeGlob.count)
+      };
+    } else {
+      newObj[crimeGlob.to_timestamp].total += parseInt(crimeGlob.count);
+    }
+    return newObj;
+  };
+  var result = allCrimeDataFiltered.reduce(reducer, initialValue);
+
+  console.log(result);
+
+  return state.set('crimesFilteredByDate', Map(result));
+}
+
+function sortCrimesByDistrict(state, filteredCrimes) {
+  var initialValue = {};
+
+  var reducer = function(newObj, crimeGlob) {
+    // total crimes
+    if (!newObj[crimeGlob.district]) {
+      newObj[crimeGlob.district] = {
+        total: parseInt(crimeGlob.count)
+      };
+    } else {
+      newObj[crimeGlob.district].total += parseInt(crimeGlob.count);
+    }
+    return newObj;
+  };
+  var result = filteredCrimes.reduce(reducer, initialValue);
+
+  console.log(result);
+
+  return state.set('crimesFilteredByDistrict', Map(result));
+}
 
 export default function(state = Map(), action) {
   switch (action.type) {
@@ -98,9 +154,11 @@ export default function(state = Map(), action) {
   case 'SET_CRIME_DATA':
     return setCrimeData(state, action.data);
   case 'FILTER_CRIMES_BY_TYPE':
-    return filterByCrimeType(state, action.filters);
+    return filterByCrimeType(state);
   case 'SORT_BY_DISTRICT':
-    return sortCrimesByDistrict(state);
+    return sortCrimesByDistrict(state, action.filteredCrimes);
+  case 'SORT_BY_DATE':
+    return sortCrimesByDate(state);
   }
   return state;
 }

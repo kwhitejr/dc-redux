@@ -64,7 +64,8 @@ store.dispatch({
       ]
     },
     allCrimeData: [],
-    crimesFilteredByDistrict: []
+    crimesFilteredByDistrict: [],
+    crimesFilteredByDate: []
   }
 });
 
