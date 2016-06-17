@@ -14,8 +14,8 @@ function toggleChamber(state, newChamber) {
   return state.set('chamber', newChamber);
 }
 
-function toggleCrime(state, toggleCrime) {
-  const crimeToToggle = getCrime(state, toggleCrime);
+function toggleCrime(state, crime) {
+  const crimeToToggle = getCrime(state, crime);
   const updatedItem = state.get('crimeFilters')
     .get(crimeToToggle)
     .update('checked', status => status === true ? false : true);
@@ -35,10 +35,13 @@ function setCrimeData(state, data) {
   return state.set('allCrimeData', data);
 }
 
-function filterByCrimeType(state, filters) {
+//need to refactor this to separate the filter and sort functions
+function filterByCrimeType(state) {
   const crimeData = state.get('allCrimeData').toJSON();
   const allCrimeData = crimeData[0];
   const checkedCrimes = [];
+  const filters = state.get('crimeFilters').toJSON();
+  console.log(filters);
 
   filters
     .filter(function (crime) {
@@ -87,7 +90,7 @@ export default function(state = Map(), action) {
   case 'TOGGLE_CHAMBER':
     return toggleChamber(state, action.newChamber);
   case 'TOGGLE_CRIME':
-    return toggleCrime(state, action.toggleCrime);
+    return toggleCrime(state, action.crime);
   case 'GET_DISTRICT':
     return getDistrict(state, action.districtNumber, action.chamber);
   case 'CHANGE_DISTRICT':

@@ -12,10 +12,20 @@ export function toggleChamber(newChamber) {
   };
 }
 
-export function toggleCrime(toggleCrime) {
+export function toggleCrime(crime) {
   return {
     type: 'TOGGLE_CRIME',
-    toggleCrime
+    crime
+  };
+}
+
+export function toggleAndFilter(crime) {
+
+  return function(dispatch) {
+
+    dispatch(toggleCrime(crime));
+
+    dispatch(filterByCrimeType());
   };
 }
 
@@ -48,11 +58,10 @@ export function setCrimeData(data) {
   };
 }
 
-export function filterByCrimeType(filters) {
-  return {
-    type: 'FILTER_CRIMES_BY_TYPE',
-    filters
-  };
+export function filterByCrimeType() {
+    return {
+      type: 'FILTER_CRIMES_BY_TYPE'
+    };
 }
 
 export function sortCrimesByDistrict() {

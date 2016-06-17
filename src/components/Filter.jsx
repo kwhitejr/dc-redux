@@ -17,7 +17,7 @@ export default React.createClass({
           <input
             type="checkbox"
             defaultChecked={entry.checked}
-            onChange={() => this.props.toggleCrime(entry.name)} />
+            onChange={() => this.props.toggleAndFilter(entry.name)} />
           {entry.name}
         </label>
       )}
@@ -27,7 +27,7 @@ export default React.createClass({
           {entry}
         </button>
       )}
-      <button onClick={() => this.props.filterByCrimeType(this.props.crimeFilters)}>Filter Crimes
+      <button onClick={() => this.props.filterByCrimeType()}>Filter Crimes
       </button>
     </div>;
   }

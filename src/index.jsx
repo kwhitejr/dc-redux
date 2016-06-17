@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory} from 'react-router';
 import {compose, createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
 
 import reducer from './reducer';
 import remoteActionMiddleware from './remote_action_middleware';
@@ -13,6 +14,7 @@ import {AppContainer} from './components/App';
 const createStoreDevTools = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
 const createStoreWithMiddleWare = applyMiddleware(
+  thunk,
   remoteActionMiddleware
 )(createStoreDevTools);
 const store = createStoreWithMiddleWare(reducer);
@@ -66,9 +68,6 @@ store.dispatch({
   }
 });
 
-// const crimeFilters = ['THEFT/LARCENY', 'VEHICLE BREAK-IN/THEFT', 'VANDALISM', 'MOTOR VEHICLE THEFT', 'BURGLARY'];
-
-// const chambers = ['house', 'senate'];
 
 const routes = <Route>
   <Route path="/" component={AppContainer} />
