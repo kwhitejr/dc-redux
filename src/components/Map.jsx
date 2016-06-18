@@ -131,7 +131,6 @@ export default React.createClass({
           default:
             districtFillColor = "#707070";
         }
-        console.log(districtNumber, districtFillColor);
 
         return {
           "fillColor": districtFillColor,
@@ -142,13 +141,6 @@ export default React.createClass({
         };
       }
 
-      // {
-      //   "fillColor": this.getFillColor.bind(null,_this),
-      //   "color": "#ffffff",
-      //   "opacity": 1,
-      //   "weight": 1,
-      //   "fillOpacity": 0.7
-      // }
     })
     .addTo(map);
   },
@@ -158,14 +150,6 @@ export default React.createClass({
       case 'senate': return senateGeoJSON;
       case 'house': return houseGeoJSON;
     }
-  },
-
-  // geoJsonStyle: function (feature) {
-
-  // },
-
-  getFillColor: function () {
-    console.log('fill color console', this);
   },
 
   onEachFeature: function (feature, layer) {

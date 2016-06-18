@@ -46,6 +46,8 @@ export function setChamberAndCrimeData(chamber) {
     dispatch(setChamber(chamber));
 
     dispatch(setAllCrimeData(chamber));
+
+    dispatch(filterByCrimeType());
   };
 }
 
