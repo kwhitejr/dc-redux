@@ -27,8 +27,6 @@ export default React.createClass({
           {entry}
         </button>
       )}
-      <button onClick={() => this.props.sortCrimesByDate()}>Filter Crimes By Date
-      </button>
     </div>;
   }
 });

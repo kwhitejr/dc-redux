@@ -18,7 +18,6 @@ export default React.createClass({
       <p>{districtInfo.politician_officetype} District {districtInfo.district_number}</p>
       <p>E-mail: <a href={mailto}>{districtInfo.contact_email}</a></p>
       <p>Tel: {districtInfo.contact_phone}</p>
-      <button onClick={() => this.props.getDistrict(13, 'senate')}>Trigger District Change</button>
     </div>;
   }
 });
