@@ -26,9 +26,9 @@ store.dispatch({
     crimeFilters: [
       {name: 'Theft', label: 'THEFT/LARCENY', checked: true},
       {name: 'Vehicle Break-in', label: 'VEHICLE BREAK-IN/THEFT', checked: true},
-      {name: 'Vandalism', label: 'VANDALISM', checked: false},
-      {name: 'Motor Vehicle Theft', label: 'MOTOR VEHICLE THEFT', checked: false},
-      {name: 'Burglary', label: 'BURGLARY', checked: false}
+      {name: 'Vandalism', label: 'VANDALISM', checked: true},
+      {name: 'Motor Vehicle Theft', label: 'MOTOR VEHICLE THEFT', checked: true},
+      {name: 'Burglary', label: 'BURGLARY', checked: true}
     ],
     districtInfo: {
       "legislator_number": 28,

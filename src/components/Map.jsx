@@ -99,13 +99,56 @@ export default React.createClass({
 
     geoJsonLayer = L.geoJson(this.currentChamberGeoJson(this.props.chamber), {
       onEachFeature: this.onEachFeature,
-      style: {
-        "fillColor": "#707070",
-        "color": "#ffffff",
-        "opacity": 1,
-        "weight": 1,
-        "fillOpacity": 0.7
+      style: function (feature) {
+        const districtNumber = feature.properties.objectid.toString();
+        const districtCrimeTotal = _this.props.crimesFilteredByDistrict[districtNumber] ? _this.props.crimesFilteredByDistrict[districtNumber].total : 0;
+        // console.log('crime in district: ',districtNumber,' ', districtCrimeTotal);
+
+        const colorObj = _config.colors[_this.props.chamber];
+        const levelsObj = _config.crimeLevels[_this.props.chamber];
+
+        var districtFillColor;
+
+        switch (true) {
+          case (districtCrimeTotal >= levelsObj["level6"]):
+            districtFillColor = colorObj["level6"];
+            break;
+          case districtCrimeTotal >= levelsObj["level5"]:
+            districtFillColor = colorObj["level5"];
+            break;
+          case districtCrimeTotal >= levelsObj["level4"]:
+            districtFillColor = colorObj["level4"];
+            break;
+          case districtCrimeTotal >= levelsObj["level3"]:
+            districtFillColor = colorObj["level3"];
+            break;
+          case districtCrimeTotal >= levelsObj["level2"]:
+            districtFillColor = colorObj["level2"];
+            break;
+          case districtCrimeTotal >= levelsObj["level1"]:
+            districtFillColor = colorObj["level1"];
+            break;
+          default:
+            districtFillColor = "#707070";
+        }
+        console.log(districtNumber, districtFillColor);
+
+        return {
+          "fillColor": districtFillColor,
+          "color": "#ffffff",
+          "opacity": 1,
+          "weight": 1,
+          "fillOpacity": 0.7
+        };
       }
+
+      // {
+      //   "fillColor": this.getFillColor.bind(null,_this),
+      //   "color": "#ffffff",
+      //   "opacity": 1,
+      //   "weight": 1,
+      //   "fillOpacity": 0.7
+      // }
     })
     .addTo(map);
   },
@@ -121,9 +164,9 @@ export default React.createClass({
 
   // },
 
-  // getFillColor: function (feature) {
-
-  // },
+  getFillColor: function () {
+    console.log('fill color console', this);
+  },
 
   onEachFeature: function (feature, layer) {
     layer.on({

@@ -59,11 +59,8 @@ function changeDistrict(state, newDistrictInfo) {
 //need to refactor this to separate the filter and sort functions
 function filterByCrimeType(state) {
   const crimeData = state.get('allCrimeData');
-  console.log(crimeData);
-  // const allCrimeData = crimeData[0];
   const checkedCrimes = [];
   const filters = state.get('crimeFilters').toJSON();
-  console.log(filters);
 
   filters
     .filter(function (crime) {
@@ -94,8 +91,6 @@ function filterByCrimeType(state) {
   };
   var result = allCrimeDataFiltered.reduce(reducer, initialValue);
 
-  console.log(result);
-
   return state.set('crimesFilteredByDistrict', Map(result));
 
 }
@@ -104,7 +99,6 @@ function sortCrimesByDate(state) {
   const crimeData = state.get('allCrimeData');
   const checkedCrimes = [];
   const filters = state.get('crimeFilters').toJSON();
-  console.log(filters);
 
   filters
     .filter(function (crime) {
@@ -132,8 +126,6 @@ function sortCrimesByDate(state) {
     return newObj;
   };
   var result = allCrimeDataFiltered.reduce(reducer, initialValue);
-
-  console.log(result);
 
   return state.set('crimesFilteredByDate', Map(result));
 }

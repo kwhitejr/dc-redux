@@ -71,18 +71,23 @@ export function changeDistrict(newDistrict) {
 
 // refactor this to use thunk --> 'fetchDistrict'
 export function getDistrict(districtNumber, chamber) {
-  return {
-    type: 'GET_DISTRICT',
-    url: 'http://localhost:3000/district',
-    method: 'POST',
-    body: {
-      chamber: chamber,
-      districtNumber: districtNumber
-    },
-    cb: (response, dispatch) => dispatch(changeDistrict(response)),
-    districtNumber,
-    chamber
+
+  return (dispatch) => {
+    fetch('http://localhost:3000/district', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        chamber: chamber,
+        districtNumber: districtNumber
+      })
+    })
+    .then(response => response.json())
+    .then(json => dispatch(changeDistrict(json)));
   };
+
 }
 
 export function filterByCrimeType() {

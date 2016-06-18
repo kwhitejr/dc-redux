@@ -54,7 +54,6 @@ app.route('/')
 
 app.route('/district')
   .post(function (req, res) {
-    console.log('body', req.body);
     var chamber = req.body.chamber;
     var districtNumber = req.body.districtNumber;
 
@@ -66,7 +65,6 @@ app.route('/district')
       if (err) {
         console.error(err);
       }
-      console.log('response', district);
       res.json(district);
     });
   });

@@ -71,7 +71,7 @@ function mapStateToProps(state) {
     crimeFilters: state.get('crimeFilters').toJSON(),
     districtInfo: state.get('districtInfo').toJSON(),
     allCrimeData: state.get('allCrimeData'),
-    crimesFilteredByDistrict: state.get('crimesFilteredByDistrict'),
+    crimesFilteredByDistrict: state.get('crimesFilteredByDistrict').toJSON(),
     crimesFilteredByDate: state.get('crimesFilteredByDate')
   };
 }
