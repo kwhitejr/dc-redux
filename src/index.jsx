@@ -63,6 +63,8 @@ store.dispatch({
         "Public Safety, Intergovernmental, and Military Affairs"
       ]
     },
+    senateCrimeData: [],
+    houseCrimeData: [],
     allCrimeData: [],
     crimesFilteredByDistrict: [],
     crimesFilteredByDate: []

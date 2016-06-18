@@ -5,6 +5,27 @@ export function setState(state) {
   };
 }
 
+export function setAllCrimeData(data) {
+  return {
+    type: 'SET_ALL_CRIME_DATA',
+    data
+  };
+}
+
+export function setSenateCrimeData(data) {
+  return {
+    type: 'SET_SENATE_CRIME_DATA',
+    data
+  };
+}
+
+export function setHouseCrimeData(data) {
+  return {
+    type: 'SET_HOUSE_CRIME_DATA',
+    data
+  };
+}
+
 export function toggleChamber(newChamber) {
   return {
     type: 'TOGGLE_CHAMBER',
@@ -19,6 +40,7 @@ export function toggleCrime(crime) {
   };
 }
 
+// refactor to use promises... (?)
 export function toggleAndFilter(crime) {
 
   return (dispatch) => {
@@ -54,13 +76,6 @@ export function getDistrict(districtNumber, chamber) {
   };
 }
 
-export function setCrimeData(data) {
-  return {
-    type: 'SET_CRIME_DATA',
-    data
-  };
-}
-
 export function filterByCrimeType() {
     return {
       type: 'FILTER_CRIMES_BY_TYPE'
@@ -73,6 +88,7 @@ export function sortCrimesByDate() {
     };
 }
 
+// Currently not used; see filterByCrimeType
 export function sortCrimesByDistrict(filteredCrimes) {
   return {
     type: 'SORT_BY_DISTRICT',

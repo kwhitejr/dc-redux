@@ -9,27 +9,43 @@ import Map from './Map';
 import * as actionCreators from '../action_creators';
 
 let senateCrimeData;
+let houseCrimeData;
 
 export const App = React.createClass({
 
   componentDidMount: function () {
-    this.loadCrimes('senate');
-    // this.loadCrimes('house');
+    this.loadSenateCrimes();
+    this.loadHouseCrimes();
   },
 
   componentDidUpdate: function () {
     // this.props.filterByCrimeType(this.props.crimeFilters);
   },
 
-  loadCrimes: function (chamber) {
+  loadSenateCrimes: function () {
     $.ajax({
-      url: 'http://localhost:3000/'+chamber+'crimequery',
+      url: 'http://localhost:3000/senatecrimequery',
       method: "GET",
       dataType: "json",
       success: (data) => {
         senateCrimeData = data[0];
-        console.log(senateCrimeData);
-        this.props.setCrimeData(List.of(data[0]));
+        this.props.setAllCrimeData(senateCrimeData);
+        this.props.setSenateCrimeData(senateCrimeData);
+      },
+      failure: function (err) {
+        console.log(err);
+      }
+    });
+  },
+
+  loadHouseCrimes: function () {
+    $.ajax({
+      url: 'http://localhost:3000/housecrimequery',
+      method: "GET",
+      dataType: "json",
+      success: (data) => {
+        houseCrimeData = data[0];
+        this.props.setHouseCrimeData(houseCrimeData);
       },
       failure: function (err) {
         console.log(err);
@@ -53,7 +69,7 @@ function mapStateToProps(state) {
     chamber: state.get('chamber'),
     crimeFilters: state.get('crimeFilters').toJSON(),
     districtInfo: state.get('districtInfo').toJSON(),
-    allCrimeData: state.get('allCrimeData').toJSON()
+    allCrimeData: state.get('allCrimeData')
   };
 }
 
