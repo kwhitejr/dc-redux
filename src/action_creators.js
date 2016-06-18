@@ -26,9 +26,9 @@ export function setHouseCrimeData(data) {
   };
 }
 
-export function toggleChamber(newChamber) {
+export function setChamber(newChamber) {
   return {
-    type: 'TOGGLE_CHAMBER',
+    type: 'SET_CHAMBER',
     newChamber
   };
 }
@@ -40,10 +40,10 @@ export function toggleCrime(crime) {
   };
 }
 
-export function toggleChamberAndCrimeData(chamber) {
+export function setChamberAndCrimeData(chamber) {
   return (dispatch) => {
 
-    dispatch(toggleChamber(chamber));
+    dispatch(setChamber(chamber));
 
     dispatch(setAllCrimeData(chamber));
   };

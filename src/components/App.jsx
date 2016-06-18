@@ -31,6 +31,7 @@ export const App = React.createClass({
         senateCrimeData = data[0];
         this.props.setSenateCrimeData(senateCrimeData);
         this.props.setAllCrimeData('senate');
+        this.props.filterByCrimeType();
       },
       failure: function (err) {
         console.log(err);
@@ -69,7 +70,9 @@ function mapStateToProps(state) {
     chamber: state.get('chamber'),
     crimeFilters: state.get('crimeFilters').toJSON(),
     districtInfo: state.get('districtInfo').toJSON(),
-    allCrimeData: state.get('allCrimeData')
+    allCrimeData: state.get('allCrimeData'),
+    crimesFilteredByDistrict: state.get('crimesFilteredByDistrict'),
+    crimesFilteredByDate: state.get('crimesFilteredByDate')
   };
 }
 

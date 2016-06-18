@@ -35,7 +35,7 @@ function getCrime(state, name) {
   );
 }
 
-function toggleChamber(state, newChamber) {
+function setChamber(state, newChamber) {
   return state.set('chamber', newChamber);
 }
 
@@ -58,8 +58,9 @@ function changeDistrict(state, newDistrictInfo) {
 
 //need to refactor this to separate the filter and sort functions
 function filterByCrimeType(state) {
-  const crimeData = state.get('allCrimeData').toJSON();
-  const allCrimeData = crimeData[0];
+  const crimeData = state.get('allCrimeData');
+  console.log(crimeData);
+  // const allCrimeData = crimeData[0];
   const checkedCrimes = [];
   const filters = state.get('crimeFilters').toJSON();
   console.log(filters);
@@ -73,7 +74,7 @@ function filterByCrimeType(state) {
     });
 
 
-  const allCrimeDataFiltered = allCrimeData.filter(function (crimeGlob) {
+  const allCrimeDataFiltered = crimeData.filter(function (crimeGlob) {
     return checkedCrimes.indexOf(crimeGlob.type) > -1;
   });
 
@@ -100,8 +101,7 @@ function filterByCrimeType(state) {
 }
 
 function sortCrimesByDate(state) {
-  const crimeData = state.get('allCrimeData').toJSON();
-  const allCrimeData = crimeData[0];
+  const crimeData = state.get('allCrimeData');
   const checkedCrimes = [];
   const filters = state.get('crimeFilters').toJSON();
   console.log(filters);
@@ -115,7 +115,7 @@ function sortCrimesByDate(state) {
     });
 
 
-  const allCrimeDataFiltered = allCrimeData.filter(function (crimeGlob) {
+  const allCrimeDataFiltered = crimeData.filter(function (crimeGlob) {
     return checkedCrimes.indexOf(crimeGlob.type) > -1;
   });
 
@@ -170,8 +170,8 @@ export default function(state = Map(), action) {
     return setHouseCrimeData(state, action.data);
 
     // this should be a Set_Chamber
-  case 'TOGGLE_CHAMBER':
-    return toggleChamber(state, action.newChamber);
+  case 'SET_CHAMBER':
+    return setChamber(state, action.newChamber);
 
   case 'TOGGLE_CRIME':
     return toggleCrime(state, action.crime);

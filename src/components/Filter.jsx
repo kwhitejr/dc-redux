@@ -23,7 +23,7 @@ export default React.createClass({
       )}
       {chambers.map(entry =>
         <button key={entry}
-                onClick={() => this.props.toggleChamberAndCrimeData(entry)} >
+                onClick={() => this.props.setChamberAndCrimeData(entry)} >
           {entry}
         </button>
       )}
