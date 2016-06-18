@@ -5,8 +5,19 @@ function setState(state, newState) {
 }
 
 /*** Refactor store setters ***/
-function setAllCrimeData(state, data) {
-  return state.set('allCrimeData', data);
+function setAllCrimeData(state, chamber) {
+  const senateCrimeData = state.get('senateCrimeData');
+  const houseCrimeData = state.get('houseCrimeData');
+
+  switch (chamber) {
+    case 'senate':
+      return state.set('allCrimeData', senateCrimeData);
+    case 'house':
+      return state.set('allCrimeData', houseCrimeData);
+    default:
+      return state.set('allCrimeData', []);
+  }
+  // return state.set('allCrimeData', data);
 }
 
 function setSenateCrimeData(state, data) {
@@ -152,7 +163,7 @@ export default function(state = Map(), action) {
   case 'SET_STATE':
     return setState(state, action.state);
   case 'SET_ALL_CRIME_DATA':
-    return setAllCrimeData(state, action.data);
+    return setAllCrimeData(state, action.chamber);
   case 'SET_SENATE_CRIME_DATA':
     return setSenateCrimeData(state, action.data);
   case 'SET_HOUSE_CRIME_DATA':
@@ -168,6 +179,8 @@ export default function(state = Map(), action) {
     return getDistrict(state, action.districtNumber, action.chamber);
   case 'CHANGE_DISTRICT':
     return changeDistrict(state, action.newDistrict);
+
+
   case 'FILTER_CRIMES_BY_TYPE':
     return filterByCrimeType(state);
 

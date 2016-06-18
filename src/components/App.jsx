@@ -29,8 +29,8 @@ export const App = React.createClass({
       dataType: "json",
       success: (data) => {
         senateCrimeData = data[0];
-        this.props.setAllCrimeData(senateCrimeData);
         this.props.setSenateCrimeData(senateCrimeData);
+        this.props.setAllCrimeData('senate');
       },
       failure: function (err) {
         console.log(err);

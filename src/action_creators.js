@@ -5,10 +5,10 @@ export function setState(state) {
   };
 }
 
-export function setAllCrimeData(data) {
+export function setAllCrimeData(chamber) {
   return {
     type: 'SET_ALL_CRIME_DATA',
-    data
+    chamber
   };
 }
 
@@ -37,6 +37,15 @@ export function toggleCrime(crime) {
   return {
     type: 'TOGGLE_CRIME',
     crime
+  };
+}
+
+export function toggleChamberAndCrimeData(chamber) {
+  return (dispatch) => {
+
+    dispatch(toggleChamber(chamber));
+
+    dispatch(setAllCrimeData(chamber));
   };
 }
 
