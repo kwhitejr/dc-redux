@@ -1,0 +1,44 @@
+/*html, body {
+  background-color: #BDA0CB;
+}
+
+.top-bar, .top-bar a, .menu>li{
+  background-color: #551A8B;
+}*/
+@media only screen {
+  .row .columns, .row .column {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.fullWidth {
+   width: 95%;
+   margin-left: auto;
+   margin-right: auto;
+   max-width: initial;
+}
+
+p, label, h5 {
+  /*font-family: Century, Baskerville, serif;*/
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  font-size: 1.0rem;
+}
+
+i p {
+  color: #707070;
+  margin: 5px;
+}
+
+p {
+/*  font-weight: 600;
+*/}
+
+.button:hover,
+.button:focus {
+  background-color: #551A8B;
+}

@@ -12,7 +12,7 @@ const _config = {
   params: {
     center: [21.477351, -157.962799],
     zoomControl: false,
-    zoom: 10,
+    zoom: 10.5,
     // maxZoom: 19,
     // minZoom: 11,
     scrollWheelZoom: false,
@@ -68,7 +68,7 @@ const _config = {
 };
 
 const mapStyle = {
-  height: '400px',
+  height: '600px',
   width: '100%'
 };
 
@@ -165,8 +165,7 @@ export default React.createClass({
 
     layer.setStyle({
         weight: 5,
-        color: '#666',
-        dashArray: '',
+        color: '#72587F',
         fillOpacity: 0.7
     });
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {List} from 'immutable';
 import {connect} from 'react-redux';
 
+import Header from './Header';
 import Filter from './Filter';
 import District from './District';
 import Map from './Map';
@@ -56,11 +57,17 @@ export const App = React.createClass({
 
   render: function() {
     return <div>
-      <section>
-        <Filter {...this.props} />
-        <District {...this.props} />
-        <Map {...this.props} />
-      </section>
+      <Header />
+      <div className="row fullWidth">
+        <div className="small-3 large-3 columns leftsidebar">
+          <Filter {...this.props} />
+          <hr />
+          <District {...this.props} />
+        </div>
+        <div className="small-9 large-9 columns">
+          <Map {...this.props} />
+        </div>
+      </div>
     </div>
   }
 });
