@@ -11,6 +11,7 @@ export default React.createClass({
   render: function() {
     const mailto = "mailto:" + this.getDistrictInfo().contact_email;
     const districtInfo = this.getDistrictInfo();
+    const politicalParty = districtInfo.politician_party;
 
     return <div className="district">
       <h4>District Information</h4>

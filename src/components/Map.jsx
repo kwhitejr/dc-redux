@@ -8,11 +8,13 @@ import houseGeoJSON from '../assets/hshd.geo.json';
 
 let map;
 let geoJsonLayer;
+let legend;
+
 const _config = {
   params: {
     center: [21.477351, -157.962799],
     zoomControl: false,
-    zoom: 10.5,
+    zoom: 11,
     // maxZoom: 19,
     // minZoom: 11,
     scrollWheelZoom: false,
@@ -68,7 +70,7 @@ const _config = {
 };
 
 const mapStyle = {
-  height: '600px',
+  height: '700px',
   width: '100%'
 };
 
@@ -81,6 +83,7 @@ export default React.createClass({
   componentDidUpdate: function() {
     // this.props.filterByCrimeType(this.props.crimeFilters);
     this.addGeoJsonToMap();
+    this.addLegendToMap();
   },
 
   createMap: function () {
@@ -102,35 +105,8 @@ export default React.createClass({
       style: function (feature) {
         const districtNumber = feature.properties.objectid.toString();
         const districtCrimeTotal = _this.props.crimesFilteredByDistrict[districtNumber] ? _this.props.crimesFilteredByDistrict[districtNumber].total : 0;
-        // console.log('crime in district: ',districtNumber,' ', districtCrimeTotal);
 
-        const colorObj = _config.colors[_this.props.chamber];
-        const levelsObj = _config.crimeLevels[_this.props.chamber];
-
-        var districtFillColor;
-
-        switch (true) {
-          case (districtCrimeTotal >= levelsObj["level6"]):
-            districtFillColor = colorObj["level6"];
-            break;
-          case districtCrimeTotal >= levelsObj["level5"]:
-            districtFillColor = colorObj["level5"];
-            break;
-          case districtCrimeTotal >= levelsObj["level4"]:
-            districtFillColor = colorObj["level4"];
-            break;
-          case districtCrimeTotal >= levelsObj["level3"]:
-            districtFillColor = colorObj["level3"];
-            break;
-          case districtCrimeTotal >= levelsObj["level2"]:
-            districtFillColor = colorObj["level2"];
-            break;
-          case districtCrimeTotal >= levelsObj["level1"]:
-            districtFillColor = colorObj["level1"];
-            break;
-          default:
-            districtFillColor = "#707070";
-        }
+        const districtFillColor = _this.getFillColor(districtCrimeTotal);
 
         return {
           "fillColor": districtFillColor,
@@ -150,6 +126,18 @@ export default React.createClass({
       case 'senate': return senateGeoJSON;
       case 'house': return houseGeoJSON;
     }
+  },
+
+  getFillColor: function(d) {
+    const colorObj = _config.colors[this.props.chamber];
+    const levelsObj = _config.crimeLevels[this.props.chamber];
+    return d > levelsObj["level6"] ? colorObj["level6"] :
+           d > levelsObj["level5"] ? colorObj["level5"] :
+           d > levelsObj["level4"] ? colorObj["level4"] :
+           d > levelsObj["level3"] ? colorObj["level3"] :
+           d > levelsObj["level2"] ? colorObj["level2"] :
+           d > levelsObj["level1"] ? colorObj["level1"] :
+                                               '#707070';
   },
 
   onEachFeature: function (feature, layer) {
@@ -184,6 +172,39 @@ export default React.createClass({
 
     this.props.getDistrict(districtNumber, chamber);
 
+  },
+
+  addLegendToMap: function () {
+    // bottom right legend panel
+    if (legend) {
+      map.removeControl(legend);
+    }
+
+    var _this = this;
+    const levelsObj = _config.crimeLevels[this.props.chamber];
+
+    legend = L.control({position: 'topright'});
+    legend.onAdd = function (map) {
+      var div = L.DomUtil.create('div', 'legend'),
+        grades = [
+          0,
+          levelsObj.level1,
+          levelsObj.level2,
+          levelsObj.level3,
+          levelsObj.level4,
+          levelsObj.level5,
+          levelsObj.level6
+        ];
+      // loop through our density intervals and generate a label with a colored square for each interval
+      for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+          '<i style="background:' + _this.getFillColor(grades[i] + 1) + '"></i> ' +
+          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+      }
+      div.innerHTML += '<p>Total Crimes Per District</p>'
+      return div;
+    };
+    legend.addTo(map);
   },
 
   render: function () {
