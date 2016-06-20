@@ -58,3 +58,8 @@ p {
     margin-right: 8px;
     opacity: 0.7;
 }
+
+#map {
+  height: 700px;
+  width: 100%;
+}

@@ -14,7 +14,11 @@ module.exports = {
     }, {
       test: /\.json$/,
       loader: 'json'
-    }]
+    },{
+      test: /\.css$/,
+      exclude: /node_modules/,
+      loader: "style-loader!css-loader"
+    }],
   },
   resolve: {
     extensions: ['', '.js', '.jsx']

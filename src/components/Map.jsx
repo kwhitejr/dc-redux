@@ -69,11 +69,6 @@ const _config = {
   }
 };
 
-const mapStyle = {
-  height: '700px',
-  width: '100%'
-};
-
 export default React.createClass({
 
   componentDidMount: function () {
@@ -209,8 +204,8 @@ export default React.createClass({
 
   render: function () {
 
-    return <div className="map" style={mapStyle}>
-      <div id="map"  style={mapStyle}>
+    return <div className="map">
+      <div id="map">
       </div>
     </div>
   }
