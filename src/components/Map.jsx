@@ -141,10 +141,14 @@ export default React.createClass({
       mouseout: this.resetHighlight,
       click: this.clickFunction
     });
+
   },
 
   highlightFeature: function (e) {
     var layer = e.target;
+    const districtNumber = layer.feature.properties.objectid.toString();
+    const districtCrimeTotal = this.props.crimesFilteredByDistrict[districtNumber] ? this.props.crimesFilteredByDistrict[districtNumber].total : 0;
+    console.log(districtCrimeTotal);
 
     layer.setStyle({
         weight: 5,
