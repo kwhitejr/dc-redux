@@ -105,9 +105,9 @@ export function sortCrimesByDate() {
 }
 
 // Currently not used; see filterByCrimeType
-export function sortCrimesByDistrict(filteredCrimes) {
+export function sortCrimesByDistrict(filteredCrimeData) {
   return {
     type: 'SORT_BY_DISTRICT',
-    filteredCrimes
+    filteredCrimeData
   };
 }
