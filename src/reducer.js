@@ -48,12 +48,21 @@ function toggleCrime(state, crime) {
   return state.update('crimeFilters', crimeFilters => crimeFilters.set(crimeToToggle, updatedItem));
 }
 
+function requestDistrict(state) {
+  return state.set('isFetching', true);
+}
+
 function getDistrict(state, districtNumber, chamber) {
   console.log('getDistrict triggered');
 }
 
 function changeDistrict(state, newDistrictInfo) {
-  return state.set('districtInfo', Map(newDistrictInfo));
+  const newState = Object.assign({}, state, {
+    districtInfo: Map(newDistrictInfo),
+    isFetching: false
+  });
+
+  return state.merge(newState);
 }
 
 //need to refactor this to separate the filter and sort functions
@@ -138,20 +147,6 @@ function sortCrimesByDate(state) {
     return prev;
   }, {});
 
-  // var initialValue = {};
-
-  // var reducer = function(newObj, crimeGlob) {
-  //   if (!newObj[crimeGlob.to_timestamp]) {
-  //     newObj[crimeGlob.to_timestamp] = {
-  //       total: parseInt(crimeGlob.count)
-  //     };
-  //   } else {
-  //     newObj[crimeGlob.to_timestamp].total += parseInt(crimeGlob.count);
-  //   }
-  //   return newObj;
-  // };
-  // var result = allCrimeDataFiltered.reduce(reducer, initialValue);
-
   return state.set('crimesFilteredByDate', Map(reducedArray));
 }
 
@@ -187,6 +182,8 @@ export default function(state = Map(), action) {
 
   case 'TOGGLE_CRIME':
     return toggleCrime(state, action.crime);
+  case 'REQUEST_DISTRICT':
+    return requestDistrict(state);
   case 'GET_DISTRICT':
     return getDistrict(state, action.districtNumber, action.chamber);
   case 'CHANGE_DISTRICT':

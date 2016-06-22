@@ -64,6 +64,12 @@ export function toggleAndFilter(crime) {
   };
 }
 
+export function requestDistrict() {
+  return {
+    type: 'REQUEST_DISTRICT',
+  };
+}
+
 export function changeDistrict(newDistrict) {
   return {
     type: 'CHANGE_DISTRICT',
@@ -75,6 +81,8 @@ export function changeDistrict(newDistrict) {
 export function getDistrict(districtNumber, chamber) {
 
   return (dispatch) => {
+    dispatch(requestDistrict());
+
     fetch('http://localhost:3000/district', {
       method: 'post',
       headers: {

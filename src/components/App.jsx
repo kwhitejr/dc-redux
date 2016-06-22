@@ -75,6 +75,7 @@ export const App = React.createClass({
 function mapStateToProps(state) {
   return {
     chamber: state.get('chamber'),
+    isFetching: state.get('isFetching'),
     crimeFilters: state.get('crimeFilters').toJSON(),
     districtInfo: state.get('districtInfo').toJSON(),
     allCrimeData: state.get('allCrimeData'),
