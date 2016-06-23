@@ -27,7 +27,7 @@ export default React.createClass({
         <button className="button"
                 key={entry}
                 onClick={() => this.props.setChamberAndCrimeData(entry)} >
-          {entry}
+          {entry} districts
         </button>
       )}
       </div>

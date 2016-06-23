@@ -1,8 +1,8 @@
-/*html, body {
-  background-color: #BDA0CB;
+html, body {
+  height: 100%;
 }
 
-.top-bar, .top-bar a, .menu>li{
+/*.top-bar, .top-bar a, .menu>li{
   background-color: #551A8B;
 }*/
 @media only screen {
@@ -39,8 +39,18 @@ p {
 */}
 
 .button:hover,
-.button:focus {
+.button:focus,
+.button.alert:hover,
+.button.alert:focus {
   background-color: #551A8B;
+}
+
+.button.alert {
+  background-color: #de2d26;
+}
+
+#learn-more {
+  margin: 10px;
 }
 
 .legend {
@@ -60,6 +70,6 @@ p {
 }
 
 #map {
-  height: 700px;
-  width: 100%;
+/*  height: 100%;
+*/  width: 100%;
 }

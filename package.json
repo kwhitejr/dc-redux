@@ -11,7 +11,10 @@
     "type": "git",
     "url": "git+https://github.com/kwhitejr/dc-redux.git"
   },
-  "keywords": [],
+  "keywords": [
+    "react",
+    "react-component"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {

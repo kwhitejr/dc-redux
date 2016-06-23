@@ -6,6 +6,9 @@ import Header from './Header';
 import Filter from './Filter';
 import District from './District';
 import Map from './Map';
+import Dashboard from './Dashboard';
+
+import { DoubleBounce } from 'better-react-spinkit';
 
 import * as actionCreators from '../action_creators';
 
@@ -13,6 +16,12 @@ let senateCrimeData;
 let houseCrimeData;
 
 export const App = React.createClass({
+
+  getInitialState: function () {
+    return {
+      isFetching: false
+    }
+  },
 
   componentDidMount: function () {
     this.loadSenateCrimes();
@@ -24,6 +33,10 @@ export const App = React.createClass({
   },
 
   loadSenateCrimes: function () {
+
+    this.setState({
+      isFetching: true
+    })
     $.ajax({
       url: 'http://localhost:3000/senatecrimequery',
       method: "GET",
@@ -33,6 +46,9 @@ export const App = React.createClass({
         this.props.setSenateCrimeData(senateCrimeData);
         this.props.setAllCrimeData('senate');
         this.props.filterByCrimeType();
+        this.setState({
+          isFetching: false
+        })
       },
       failure: function (err) {
         console.log(err);
@@ -65,7 +81,15 @@ export const App = React.createClass({
           <District {...this.props} />
         </div>
         <div className="small-9 large-9 columns">
-          <Map {...this.props} />
+          {this.state.isFetching
+            ? <DoubleBounce size={50} />
+            : <Map {...this.props} />
+          }
+        </div>
+      </div>
+      <div className="row fullWidth">
+        <div className="small-12 column">
+          <Dashboard {...this.props} />
         </div>
       </div>
     </div>

@@ -86,6 +86,12 @@ export default React.createClass({
     map = L.map(mapElement, _config.params);
 
     L.tileLayer(_config.tileLayer.url, _config.tileLayer.params).addTo(map);
+
+    //Force map to 100% height
+    $(window).on("resize", function() {
+      $("#map").height($(".leftsidebar").height());
+      map.invalidateSize();
+    }).trigger("resize");
   },
 
   addGeoJsonToMap: function () {
