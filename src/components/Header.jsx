@@ -12,7 +12,7 @@ export default React.createClass({
           <ul className="menu">
             <li className="menu-text">District Crimes</li>
             <li><input type="search" placeholder="Search" /></li>
-            <li><button type="button" className="button">Search</button></li>
+            <li><button type="button" className="button disabled">Search</button></li>
           </ul>
         </div>
         <div className="top-bar-right">

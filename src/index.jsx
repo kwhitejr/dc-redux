@@ -25,6 +25,8 @@ store.dispatch({
   state: {
     chamber: 'senate',
     isFetching: false,
+    periodStart: '',
+    periodEnd: '',
     crimeFilters: [
       {name: 'Theft', label: 'THEFT/LARCENY', checked: true},
       {name: 'Vehicle Break-in', label: 'VEHICLE BREAK-IN/THEFT', checked: true},

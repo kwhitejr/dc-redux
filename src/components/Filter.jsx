@@ -22,7 +22,7 @@ export default React.createClass({
           {entry.name}
         </label>
       )}
-      <div className="button-group">
+      <div className="button-group expanded">
       {chambers.map(entry =>
         <button className="button"
                 key={entry}
