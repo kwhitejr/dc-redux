@@ -25,7 +25,7 @@ export default React.createClass({
             <p>{districtInfo.politician_position} {districtInfo.politician_firstname} {districtInfo.politician_lastname} ({politicalParty})</p>
             <p>E-mail: <a href={mailto}>{districtInfo.contact_email}</a></p>
             <p>Tel: {districtInfo.contact_phone}</p>
-            <button className="button alert expanded" id="learn-more">learn more about this district</button>
+            <button className="button alert expanded disabled" id="learn-more">learn more about this district</button>
           </div>
       }
     </div>;

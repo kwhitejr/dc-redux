@@ -6,9 +6,10 @@ import config from '../../config';
 import senateGeoJSON from '../assets/hssd.geo.json';
 import houseGeoJSON from '../assets/hshd.geo.json';
 
-let map;
-let geoJsonLayer;
-let legend;
+let map,
+    geoJsonLayer,
+    legend,
+    info;
 
 const _config = {
   params: {
@@ -79,6 +80,7 @@ export default React.createClass({
     // this.props.filterByCrimeType(this.props.crimeFilters);
     this.addGeoJsonToMap();
     this.addLegendToMap();
+    this.addInfoToMap();
   },
 
   createMap: function () {
@@ -159,12 +161,14 @@ export default React.createClass({
     layer.setStyle({
         weight: 5,
         color: '#72587F',
-        fillOpacity: 0.7
+        pacity: 0.9
     });
 
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
     }
+
+    this.info.update(layer.feature.properties);
   },
 
   resetHighlight: function (e) {
@@ -210,6 +214,29 @@ export default React.createClass({
       return div;
     };
     legend.addTo(map);
+  },
+
+  addInfoToMap: function () {
+    if (info){
+      map.removeControl(info);
+    }
+
+    const _this = this;
+    // Top right info panel
+    info = this.info = L.control({position: 'topleft'});
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML =
+          props ? '<p>'+ ' District ' + props.objectid + '</p>'
+                : '<p>Hover over a district!</p>';
+    };
+    info.addTo(map);
+
   },
 
   render: function () {
