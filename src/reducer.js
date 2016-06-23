@@ -84,13 +84,21 @@ function filterByCrimeType(state) {
     return checkedCrimes.indexOf(crimeGlob.type) > -1;
   });
 
+  console.log(allCrimeDataFiltered);
+
   /*** Reducer, sort by district ***/
   const reducedArray = allCrimeDataFiltered.reduce(function(prev, curr) {
     if (!prev[curr.district]) {
       prev[curr.district] = {
         total: parseInt(curr.count)
       };
+      prev[curr.district][curr.type] = parseInt(curr.count);
     } else {
+      if (!prev[curr.district][curr.type]) {
+        prev[curr.district][curr.type] = parseInt(curr.count);
+      } else {
+        prev[curr.district][curr.type] += parseInt(curr.count);
+      }
       prev[curr.district].total += parseInt(curr.count);
     }
     return prev;
