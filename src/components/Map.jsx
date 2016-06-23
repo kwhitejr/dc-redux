@@ -210,7 +210,7 @@ export default React.createClass({
           '<i style="background:' + _this.getFillColor(grades[i] + 1) + '"></i> ' +
           grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
       }
-      div.innerHTML += '<p>Total Crimes Per District</p>'
+      div.innerHTML += '<p>Total Crime Per District</p>'
       return div;
     };
     legend.addTo(map);
@@ -235,7 +235,22 @@ export default React.createClass({
           districtNumber  ? '<h5>'+ chamber +' District ' + districtNumber + '</h5>' +
                             (districtCrime.total
                               ? '<p><b>Aggregate Crime:</b> '+districtCrime.total+'</p>'
-                              : '<p>Insufficient Data :( </p>')
+                              : '<p>Insufficient Data :( </p>') +
+                            (districtCrime["THEFT/LARCENY"]
+                              ? '<p>Thefts: '+districtCrime["THEFT/LARCENY"]+'</p>'
+                              : '') +
+                            (districtCrime["VEHICLE BREAK-IN/THEFT"]
+                              ? '<p>Vehicle Break-ins: '+districtCrime["VEHICLE BREAK-IN/THEFT"]+'</p>'
+                              : '') +
+                            (districtCrime["MOTOR VEHICLE THEFT"]
+                              ? '<p>Motor Vehicle Thefts: '+districtCrime["MOTOR VEHICLE THEFT"]+'</p>'
+                              : '') +
+                            (districtCrime["VANDALISM"]
+                              ? '<p>Vandalisms: '+districtCrime["VANDALISM"]+'</p>'
+                              : '') +
+                            (districtCrime["BURGLARY"]
+                              ? '<p>Burglaries: '+districtCrime["BURGLARY"]+'</p>'
+                              : '')
                           : '<h5>Hover over a district!</h5>';
     };
     info.addTo(map);
