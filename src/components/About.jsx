@@ -12,6 +12,7 @@ export default React.createClass({
       <Header />
       <div className="about">
         <div className="row media-object">
+          <h4><a href="/">Back to the Main Page</a></h4>
           <div className="media-object-section">
             <div className="thumbnail">
               <img src="assets/team-min.jpg" height="300" width="450" title="Left to right: Chaz Leong, Theo Tran, Kevin White, Jesse Copeland (instructor)"/>
@@ -19,7 +20,7 @@ export default React.createClass({
           </div>
           <div className="media-object-section main-section">
             <h4>Meet the team!</h4>
-            <p><a href="http://chazleong.com/">Chaz Leong</a>, <a href="http://theotrance.com/">Theo Tran</a>, <a href="http://kwhitejr.com">Kevin White</a>, and Fred Im (not pictured) graduated from DevLeague Coding Bootcamp in April, 2016.  Our capstone project, <i>Disctrict Crimes</i>, is intended to visualize public data in order to help the citizens of Hawaii understand troubled areas and to reach the local legislators who are best placed to effect change.</p><br />
+            <p><a href="http://chazleong.com/">Chaz Leong</a>, <a href="http://theotrance.com/">Theo Tran</a>, <a href="http://kwhitejr.com">Kevin White</a>, and Fred Im (not pictured) graduated from Dev League Coding Bootcamp in April, 2016.  Our capstone project, <i>District Crimes</i>, is intended to visualize public data in order to help the citizens of Hawaii understand troubled areas and to reach the local legislators who are best placed to effect change.</p><br />
             <p><i>District Crimes Redux</i> is a complete revision of the original project that incorporates React Redux, Webpack, ImmutableJS, MongoDB, and much more.  Further, <i>District Crimes Redux</i> fully embraces test-driven development with Mocha/Chai testing for redux reducers and React components.</p>
           </div>
         </div>
@@ -38,7 +39,7 @@ export default React.createClass({
         <div className="row media-object">
           <div className="media-object-section">
             <div className="thumbnail">
-              <img src="assets/team-min.jpg" height="300" width="450" title="Left to right: Chaz Leong, Theo Tran, Kevin White, Jesse Copeland (instructor)"/>
+              <img src="assets/crime-min.jpg" height="300" width="450" title="District Crimes Redux continues to grow!"/>
             </div>
           </div>
           <div className="media-object-section main-section">
