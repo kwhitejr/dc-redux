@@ -1,4 +1,5 @@
 import {Map, List} from 'immutable';
+import moment from 'moment';
 
 function setState(state, newState) {
   return state.merge(newState);
@@ -84,8 +85,6 @@ function filterByCrimeType(state) {
     return checkedCrimes.indexOf(crimeGlob.type) > -1;
   });
 
-  console.log(allCrimeDataFiltered);
-
   /*** Reducer, sort by district ***/
   const reducedArray = allCrimeDataFiltered.reduce(function(prev, curr) {
     if (!prev[curr.district]) {
@@ -143,7 +142,24 @@ function sortCrimesByDate(state) {
     return prev;
   }, {});
 
-  return state.set('crimesFilteredByDate', Map(reducedArray));
+
+  let dates = [];
+  for (var i in reducedArray) {
+    const newKey = moment(i).format("DD/MM/YYYY");
+    dates.push(newKey);
+  }
+
+  const startDate = dates[0];
+  const endDate = dates[dates.length-1];
+  console.log(startDate, endDate);
+
+  const newState = Object.assign({}, state, {
+    crimesFilteredByDate: Map(reducedArray),
+    startDate: startDate,
+    endDate: endDate
+  });
+
+  return state.merge(newState);
 }
 
 function sortCrimesByDistrict(state, filteredCrimeData) {
