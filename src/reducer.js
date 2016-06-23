@@ -155,7 +155,7 @@ function sortCrimesByDate(state) {
 
   const newState = Object.assign({}, state, {
     crimesFilteredByDate: Map(reducedArray),
-    periodStart: startDate,
+    periodStart: periodStart,
     periodEnd: periodEnd
   });
 

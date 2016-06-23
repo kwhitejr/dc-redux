@@ -79,7 +79,7 @@ store.dispatch({
 
 const routes = <Route>
   <Route path="/" component={AppContainer} />
-  <Route path="/about" component={About} />
+    <Route path="about" component={About} />
 </Route>;
 
 ReactDOM.render(

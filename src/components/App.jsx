@@ -8,7 +8,7 @@ import District from './District';
 import Map from './Map';
 import Dashboard from './Dashboard';
 
-import { DoubleBounce } from 'better-react-spinkit';
+import { Circle } from 'better-react-spinkit';
 
 import * as actionCreators from '../action_creators';
 
@@ -82,7 +82,7 @@ export const App = React.createClass({
         </div>
         <div className="small-9 large-9 columns">
           {this.state.isFetching
-            ? <DoubleBounce size={50} />
+            ? <Circle size={50} color="blue"/>
             : <Map {...this.props} />
           }
         </div>

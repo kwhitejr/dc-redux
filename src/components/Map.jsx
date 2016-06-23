@@ -235,7 +235,8 @@ export default React.createClass({
           districtNumber  ? '<h5>'+ chamber +' District ' + districtNumber + '</h5>' +
                             (districtCrime.total
                               ? '<p><b>Aggregate Crime:</b> '+districtCrime.total+'</p>'
-                              : '<p>Insufficient Data :( </p>') +
+                              : '<p>Insufficient Data :( </p>' +
+                                '<p>Data Points Lost to API Inaccuracies: ' + _this.props.crimesFilteredByDistrict.null.total+'</p>') +
                             (districtCrime["THEFT/LARCENY"]
                               ? '<p>Thefts: '+districtCrime["THEFT/LARCENY"]+'</p>'
                               : '') +
