@@ -155,8 +155,7 @@ export default React.createClass({
   highlightFeature: function (e) {
     var layer = e.target;
     const districtNumber = layer.feature.properties.objectid.toString();
-    const districtCrimeTotal = this.props.crimesFilteredByDistrict[districtNumber] ? this.props.crimesFilteredByDistrict[districtNumber].total : 0;
-    console.log(districtCrimeTotal);
+    const districtCrime = this.props.crimesFilteredByDistrict[districtNumber] ? this.props.crimesFilteredByDistrict[districtNumber] : 0;
 
     layer.setStyle({
         weight: 5,
@@ -168,11 +167,12 @@ export default React.createClass({
         layer.bringToFront();
     }
 
-    this.info.update(layer.feature.properties);
+    this.info.update(districtNumber, districtCrime);
   },
 
   resetHighlight: function (e) {
     geoJsonLayer.resetStyle(e.target);
+    this.info.update();
   },
 
   clickFunction: function (e) {
@@ -220,7 +220,7 @@ export default React.createClass({
     if (info){
       map.removeControl(info);
     }
-
+    const chamber = this.props.chamber.slice(0,1).toUpperCase() + this.props.chamber.slice(1, this.props.chamber.length);
     const _this = this;
     // Top right info panel
     info = this.info = L.control({position: 'topleft'});
@@ -230,10 +230,13 @@ export default React.createClass({
         return this._div;
     };
     // method that we will use to update the control based on feature properties passed
-    info.update = function (props) {
+    info.update = function (districtNumber, districtCrime) {
         this._div.innerHTML =
-          props ? '<p>'+ ' District ' + props.objectid + '</p>'
-                : '<p>Hover over a district!</p>';
+          districtNumber  ? '<h5>'+ chamber +' District ' + districtNumber + '</h5>' +
+                            (districtCrime.total
+                              ? '<p><b>Aggregate Crime:</b> '+districtCrime.total+'</p>'
+                              : '<p>Insufficient Data :( </p>')
+                          : '<h5>Hover over a district!</h5>';
     };
     info.addTo(map);
 
