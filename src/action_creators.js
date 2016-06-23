@@ -48,6 +48,8 @@ export function setChamberAndCrimeData(chamber) {
     dispatch(setAllCrimeData(chamber));
 
     dispatch(filterByCrimeType());
+
+    dispatch(sortCrimesByDate());
   };
 }
 

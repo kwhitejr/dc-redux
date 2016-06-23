@@ -145,18 +145,18 @@ function sortCrimesByDate(state) {
 
   let dates = [];
   for (var i in reducedArray) {
-    const newKey = moment(i).format("DD/MM/YYYY");
+    const newKey = moment(i).format("MM/DD/YYYY");
     dates.push(newKey);
   }
 
-  const startDate = dates[0];
-  const endDate = dates[dates.length-1];
-  console.log(startDate, endDate);
+  const periodStart = dates[0];
+  const periodEnd = dates[dates.length-1];
+  console.log(periodStart, periodEnd);
 
   const newState = Object.assign({}, state, {
     crimesFilteredByDate: Map(reducedArray),
-    startDate: startDate,
-    endDate: endDate
+    periodStart: startDate,
+    periodEnd: periodEnd
   });
 
   return state.merge(newState);

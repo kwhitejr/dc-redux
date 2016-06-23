@@ -10,9 +10,9 @@ body {
   background-color: white;
 }
 
-.leaflet-container {
+/*.leaflet-container {
   background-color: purple !important;
-}
+}*/
 
 @media only screen {
   .row .columns, .row .column {

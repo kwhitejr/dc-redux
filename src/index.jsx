@@ -11,6 +11,7 @@ import remoteActionMiddleware from './remote_action_middleware';
 // import App from './components/App';
 
 import {AppContainer} from './components/App';
+import About from './components/About';
 
 const createStoreDevTools = compose(
   window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
@@ -25,8 +26,8 @@ store.dispatch({
   state: {
     chamber: 'senate',
     isFetching: false,
-    periodStart: '',
-    periodEnd: '',
+    periodStart: '09/23/2015',
+    periodEnd: '03/23/2016',
     crimeFilters: [
       {name: 'Theft', label: 'THEFT/LARCENY', checked: true},
       {name: 'Vehicle Break-in', label: 'VEHICLE BREAK-IN/THEFT', checked: true},
@@ -78,6 +79,7 @@ store.dispatch({
 
 const routes = <Route>
   <Route path="/" component={AppContainer} />
+  <Route path="/about" component={About} />
 </Route>;
 
 ReactDOM.render(
