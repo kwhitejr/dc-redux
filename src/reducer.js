@@ -104,24 +104,6 @@ function filterByCrimeType(state) {
     return prev;
   }, {});
 
-  // console.log('reduced array ', reducedArray);
-
-  // var initialValue = {};
-
-  // var reducer = function(newObj, crimeGlob) {
-  //   // total crimes
-  //   if (!newObj[crimeGlob.district]) {
-  //     newObj[crimeGlob.district] = {
-  //       total: parseInt(crimeGlob.count)
-  //     };
-  //   } else {
-  //     newObj[crimeGlob.district].total += parseInt(crimeGlob.count);
-  //   }
-  //   return newObj;
-  // };
-  // var result = allCrimeDataFiltered.reduce(reducer, initialValue);
-  // console.log('function reduce ', result);
-
   return state.set('crimesFilteredByDistrict', Map(reducedArray));
 
 }
@@ -149,7 +131,13 @@ function sortCrimesByDate(state) {
       prev[curr.to_timestamp] = {
         total: parseInt(curr.count)
       };
+      prev[curr.to_timestamp][curr.type] = parseInt(curr.count);
     } else {
+      if (!prev[curr.to_timestamp][curr.type]) {
+        prev[curr.to_timestamp][curr.type] = parseInt(curr.count);
+      } else {
+        prev[curr.to_timestamp][curr.type] += parseInt(curr.count);
+      }
       prev[curr.to_timestamp].total += parseInt(curr.count);
     }
     return prev;
