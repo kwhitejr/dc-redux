@@ -28,6 +28,8 @@
     ]
   },
   "dependencies": {
+    "d3": "^3.5.17",
+    "d3-scale": "^0.9.3",
     "immutable": "^3.8.1",
     "node-sass": "^3.8.0",
     "react": "^15.1.0",
