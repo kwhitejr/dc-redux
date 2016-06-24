@@ -49,7 +49,7 @@ app.use(function(req, res, next) {
 
 app.route('/')
   .get(function (req, res) {
-    res.render('index');
+    res.sendFile(path.join(__dirname, 'index.html'));
   });
 
 app.route('/district')
