@@ -85,8 +85,7 @@ export function getDistrict(districtNumber, chamber) {
   return (dispatch) => {
     dispatch(requestDistrict());
 
-    fetch('http://159.203.226.209:3000/district', {
-      mode: 'no-cors',
+    fetch('/district', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
