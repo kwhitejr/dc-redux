@@ -7,7 +7,7 @@ var express =       require('express'),
     config =        require('./config');
 
 //mongodb://127.0.0.1:27017/podcast
-mongoose.connect('mongodb://localhost/dc-redux');
+mongoose.connect('mongodb://127.0.0.1:27017/dc-redux');
 
 var districtSchema = mongoose.Schema({
   legislator_number: Number,
