@@ -85,7 +85,7 @@ export function getDistrict(districtNumber, chamber) {
   return (dispatch) => {
     dispatch(requestDistrict());
 
-    fetch('/district', {
+    fetch('http://127.0.0.1:27017/district', {
       method: 'post',
       headers: {
         'Accept': 'application/json',
