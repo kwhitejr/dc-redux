@@ -94,7 +94,7 @@ export default React.createClass({
     var newState = {};
 
     $.ajax({
-      url: 'http://localhost:3000/file/'+fileName,
+      url: 'http://159.203.226.209:3000/file/'+fileName,
       method: "GET",
       dataType: "json",
       success: (data) => {

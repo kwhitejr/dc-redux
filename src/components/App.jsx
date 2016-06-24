@@ -38,7 +38,7 @@ export const App = React.createClass({
       isFetching: true
     })
     $.ajax({
-      url: 'http://localhost:3000/senatecrimequery',
+      url: 'http://159.203.226.209:3000/senatecrimequery',
       method: "GET",
       dataType: "json",
       success: (data) => {
@@ -58,7 +58,7 @@ export const App = React.createClass({
 
   loadHouseCrimes: function () {
     $.ajax({
-      url: 'http://localhost:3000/housecrimequery',
+      url: 'http://159.203.226.209:3000/housecrimequery',
       method: "GET",
       dataType: "json",
       success: (data) => {
