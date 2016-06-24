@@ -35,7 +35,7 @@ var District = mongoose.model('District', districtSchema);
 
 var app = express();
 
-app.use(express.static(path.resolve(__dirname, './dist')));
+app.use(express.static(path.resolve(__dirname, '/dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(function(req, res, next) {
@@ -102,6 +102,30 @@ app.get('/housecrimequery', function (req, res) {
   )
   .then(function (results) {
     res.json(results);
+  });
+});
+
+app.get('/file/:name', function (req, res, next) {
+
+  var options = {
+    root: __dirname + '/dist/assets/',
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+
+  var fileName = req.params.name;
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+      console.log(options.root);
+      console.log(err);
+      res.status(err.status).end();
+    }
+    else {
+      console.log('Sent:', fileName);
+    }
   });
 });
 

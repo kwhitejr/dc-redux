@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 // import L from 'leaflet';
 
 import config from '../../config';
-import senateGeoJSON from '../assets/hssd.geo.json';
-import houseGeoJSON from '../assets/hshd.geo.json';
 
 let map,
     geoJsonLayer,
@@ -73,8 +71,16 @@ const _config = {
 
 export default React.createClass({
 
+  getInitialState: function () {
+    return {
+      isFetching: false
+    }
+  },
+
   componentDidMount: function () {
     this.createMap();
+    this.loadFile("hssd.geo.json", "senateGeoJSON")
+    this.loadFile("hshd.geo.json", "houseGeoJSON")
   },
 
   componentDidUpdate: function() {
@@ -82,6 +88,23 @@ export default React.createClass({
     this.addGeoJsonToMap();
     this.addLegendToMap();
     this.addInfoToMap();
+  },
+
+  loadFile: function (fileName, label) {
+    var newState = {};
+
+    $.ajax({
+      url: 'http://localhost:3000/file/'+fileName,
+      method: "GET",
+      dataType: "json",
+      success: (data) => {
+        newState[label] = data;
+        this.setState(newState);
+      },
+      failure: function (err) {
+        // console.log(err);
+      }
+    });
   },
 
   createMap: function () {
@@ -127,8 +150,8 @@ export default React.createClass({
 
   currentChamberGeoJson: function(chamber) {
     switch (chamber) {
-      case 'senate': return senateGeoJSON;
-      case 'house': return houseGeoJSON;
+      case 'senate': return this.state.senateGeoJSON;
+      case 'house': return this.state.houseGeoJSON;
     }
   },
 
