@@ -19,6 +19,7 @@ const _config = {
     // maxZoom: 19,
     // minZoom: 11,
     scrollWheelZoom: false,
+    dragging: false,
     legends: true,
     infoControl: false,
     attributionControl: true

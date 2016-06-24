@@ -32,7 +32,7 @@ export default React.createClass({
           </div>
           <div className="media-object-section">
             <div className="thumbnail">
-              <img src="assets/districtcrimes_og.png" height="300" width="450" title="Screen capture of the original District Crimes!"/>
+              <a href="http://districtcrimes.kwhitejr.com" ><img src="assets/districtcrimes_og.png" height="300" width="450" title="Screen capture of the original District Crimes!"/></a>
             </div>
           </div>
         </div>

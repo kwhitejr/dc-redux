@@ -10,14 +10,14 @@ export default React.createClass({
       <div className="top-bar">
         <div className="top-bar-left">
           <ul className="menu">
-            <li className="menu-text">District Crimes <i>Redux</i></li>
+            <li className="menu-text"><i>District Crimes Redux</i></li>
             <li><input type="search" placeholder="Search" /></li>
             <li><button type="button" className="button disabled">Search</button></li>
           </ul>
         </div>
         <div className="top-bar-right">
           <ul className="dropdown menu" data-dropdown-menu>
-            <li><a href="/https://github.com/kwhitejr/dc-redux">Github</a></li>
+            <li><a href="https://github.com/kwhitejr/dc-redux">Github</a></li>
             <li><a href="/#/about">About</a></li>
           </ul>
         </div>

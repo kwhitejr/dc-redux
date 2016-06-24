@@ -13,7 +13,9 @@ export default React.createClass({
 
     return <div className="filter">
       <h4>Filter By Crime Type</h4>
-      <p>Period: {this.props.periodStart} ~ {this.props.periodEnd}</p>
+      <div className="text-center">
+      <i><p>Period: {this.props.periodStart} ~ {this.props.periodEnd}</p></i>
+      </div>
       {this.props.crimeFilters.map(entry =>
         <label key={entry.name}>
           <input
