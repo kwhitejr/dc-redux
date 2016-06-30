@@ -26,8 +26,8 @@ store.dispatch({
   state: {
     chamber: 'senate',
     isFetching: false,
-    periodStart: '09/23/2015',
-    periodEnd: '03/23/2016',
+    periodStart: '2015-09-23',
+    periodEnd: '2016-03-23',
     crimeFilters: [
       {name: 'Theft', label: 'THEFT/LARCENY', checked: true},
       {name: 'Vehicle Break-in', label: 'VEHICLE BREAK-IN/THEFT', checked: true},
@@ -42,37 +42,36 @@ store.dispatch({
       "politician_officetype": "Senate",
       "politician_position": "Senator",
       "politician_party": "Democrat",
-      "politician_picture": "http://www.capitol.hawaii.gov/Members/Images/RepSenPhotos/baker.jpg",
-      "politician_firstname": "Rosalyn",
-      "politician_lastname": "Baker",
+      "politician_picture": "http://www.capitol.hawaii.gov/Members/Images/RepSenPhotos/galuteria.jpg",
+      "politician_firstname": "Galuteria",
+      "politician_lastname": "Brickwood",
       "address_street": "Hawaii State Capitol",
-      "address_room": "230",
-      "contact_phone": "808-586-6070",
-      "contact_fax": "808-586-6071",
-      "contact_email": "senbaker@Capitol.hawaii.gov",
-      "contact_links": "http://www.capitol.hawaii.gov/memberpage.aspx?member=baker&year=2016",
-      "district_number": 6,
-      "district_area": [
-        "Makena",
-        "Wailea",
-        "Kihei",
-        "Ma‘alaea",
-        "Lahaina",
-        "Ka‘anapali",
-        "Napili",
-        "Kapalua"
+      "address_room": "223",
+      "contact_phone": "808-586-6740",
+      "contact_fax": "808-586-6829",
+      "contact_email": "sengaluteria@capitol.hawaii.gov",
+      "contact_links": "http://www.capitol.hawaii.gov/memberpage.aspx?member=galuteria&year=2016",
+      "district_number": 12,
+      "neighborhoods": [
+        "Waikiki",
+        "Ala Moana",
+        "Kaka‘ako",
+        "McCully",
+        "Mo‘ili‘ili"
       ],
-      "committees": [
-        "Commerce, Consumer Protection, and Health",
-        "Economic Development, Environment, and Technology",
-        "Public Safety, Intergovernmental, and Military Affairs"
-      ]
+      "politician_committee": [
+        "Housing",
+        "Tourism and International Affairs",
+        "Ways and Means"
+      ],
+      "chamber": "senate"
     },
     senateCrimeData: [],
     houseCrimeData: [],
     allCrimeData: [],
     crimesFilteredByDistrict: [],
-    crimesFilteredByDate: []
+    crimesSortedByDate: [],
+    totalCrimesByDate: []
   }
 });
 

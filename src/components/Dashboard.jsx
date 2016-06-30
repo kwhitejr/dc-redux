@@ -1,25 +1,37 @@
 import React from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import moment from 'moment';
 
 export default React.createClass({
+
   mixins: [PureRenderMixin],
 
+  getDistrictData: function () {
+    const { districtInfo, crimesSortedByDate } = this.props;
+
+    return crimesSortedByDate
+      .filter((glob) => {
+        return glob.district === districtInfo.district_number;
+      })
+      .sort((a,b) => {
+        if (a.date < b.date) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+  },
+
   render: function() {
-    const districtInfo = this.props.districtInfo;
+    const { districtInfo, crimesSortedByDate } = this.props;
     const mailto = "mailto:" + districtInfo.contact_email;
     const politicalParty = districtInfo.politician_party.slice(0,1) + '.';
+    const selectedDistrictCrimeData = this.getDistrictData();
 
     return <div className="dashboard">
       <h1>Dashboard: {districtInfo.politician_officetype} District {districtInfo.district_number}</h1>
-      <h3>Dropdown with District Choices</h3>
-      <img className="thumbnail" id="dashboard-photo" src={districtInfo.politician_picture} height="300" width="240" />
-      <p>{districtInfo.politician_position} {districtInfo.politician_firstname} {districtInfo.politician_lastname} ({politicalParty})</p>
-      <p>E-mail: <a href={mailto}>{districtInfo.contact_email}</a></p>
-      <p>Tel: {districtInfo.contact_phone}</p>
       <LineChart
-        data={practiceData}
-        width={600}
-        height={300} />
+        data={selectedDistrictCrimeData} />
     </div>;
   }
 });
@@ -59,7 +71,7 @@ const DataSeries = React.createClass({
 
   propTypes: {
     colors:             React.PropTypes.func,
-    data:               React.PropTypes.object,
+    data:               React.PropTypes.array,
     interpolationType:  React.PropTypes.string,
     xScale:             React.PropTypes.func,
     yScale:             React.PropTypes.func
@@ -68,7 +80,7 @@ const DataSeries = React.createClass({
   getDefaultProps() {
     return {
       data:               [],
-      interpolationType:  'cardinal',
+      interpolationType:  'basis',
       colors:             d3.scale.category10()
     };
   },
@@ -77,14 +89,20 @@ const DataSeries = React.createClass({
     let { data, colors, xScale, yScale, interpolationType } = this.props;
 
     let line = d3.svg.line()
-      .interpolate(interpolationType)
-      .x((d) => { return xScale(d.x); })
-      .y((d) => { return yScale(d.y); });
+      // .interpolate(interpolationType)
+      .x((d) => { return xScale(new Date(d.to_timestamp)); })
+      .y((d) => { return yScale(d.count); });
 
-    let lines = data.points.map((series, id) => {
+    let dataGroup = d3.nest()
+      .key(function(d) {
+        return d.type;
+      })
+      .entries(data);
+
+    let lines = dataGroup.map((series, id) => {
       return (
         <Line
-          path={line(series)}
+          path={line(series.values)}
           stroke={colors(id)}
           key={id}
           />
@@ -105,7 +123,7 @@ const LineChart = React.createClass({
   propTypes: {
     width:  React.PropTypes.number,
     height: React.PropTypes.number,
-    data:   React.PropTypes.object.isRequired
+    data:   React.PropTypes.array.isRequired
   },
 
   getDefaultProps(){
@@ -118,41 +136,29 @@ const LineChart = React.createClass({
   render() {
     let { width, height, data } = this.props;
 
-    let xScale = d3.scale.ordinal()
-                   .domain(data.xValues)
-                   .rangePoints([0, width]);
+    let xScale = d3.time.scale()
+                    .domain([new Date('2015-09-24T00:00:00.000Z'), new Date('2016-03-24T00:00:00.000Z')])
+                    .range([0, width]);
 
     let yScale = d3.scale.linear()
-                   .range([height, 10])
-                   .domain([data.yMin, data.yMax]);
+                    .domain([0, d3.max(data, function(d) {
+                        return d.count;
+                      })])
+                    .range([height, 50]);
 
     return (
-      <svg width={width} height={height}>
-          <DataSeries
-            xScale={xScale}
-            yScale={yScale}
-            data={data}
-            width={width}
-            height={height}
-            />
-      </svg>
+      <div className="graph">
+        <svg width={width} height={height}>
+            <DataSeries
+              xScale={xScale}
+              yScale={yScale}
+              data={data}
+              width={width}
+              height={height}
+              />
+        </svg>
+      </div>
     );
   }
 
 });
-
-let practiceData = {
-  points: [
-    [ { x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 },
-      { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 } ]
-    ,
-    [ { x: 0, y: 8 }, { x: 1, y: 5 }, { x: 2, y: 20 }, { x: 3, y: 12 },
-      { x: 4, y: 4 }, { x: 5, y: 6 }, { x: 6, y: 2 } ]
-    ,
-    [ { x: 0, y: 0 }, { x: 1, y: 5 }, { x: 2, y: 8 }, { x: 3, y: 2 },
-      { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
-    ],
-  xValues: [0,1,2,3,4,5,6],
-  yMin: 0,
-  yMax: 30
-};

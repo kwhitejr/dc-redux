@@ -121,9 +121,16 @@ function sortCrimesByDate(state) {
     });
 
 
-  const allCrimeDataFiltered = crimeData.filter(function (crimeGlob) {
-    return checkedCrimes.indexOf(crimeGlob.type) > -1;
-  });
+  const allCrimeDataFiltered = crimeData
+    .filter(function (crimeGlob) {
+      return checkedCrimes.indexOf(crimeGlob.type) > -1;
+    })
+    .map(function (crimeGlob)  {
+      crimeGlob["date"] = moment(crimeGlob.to_timestamp).format("YYYY-MM-DD");
+      return crimeGlob;
+    });
+
+  // console.log(allCrimeDataFiltered);
 
   const reducedArray = allCrimeDataFiltered.reduce(function(prev, curr) {
     if (!prev[curr.to_timestamp]) {
@@ -145,16 +152,16 @@ function sortCrimesByDate(state) {
 
   let dates = [];
   for (var i in reducedArray) {
-    const newKey = moment(i).format("MM/DD/YYYY");
+    const newKey = moment(i).format("YYYY-MM-DD");
     dates.push(newKey);
   }
 
   const periodStart = dates[0];
   const periodEnd = dates[dates.length-1];
-  console.log(periodStart, periodEnd);
 
   const newState = Object.assign({}, state, {
-    crimesFilteredByDate: Map(reducedArray),
+    crimesSortedByDate: allCrimeDataFiltered,
+    totalCrimesByDate: reducedArray,
     periodStart: periodStart,
     periodEnd: periodEnd
   });
@@ -174,7 +181,7 @@ function sortCrimesByDistrict(state, filteredCrimeData) {
     return prev;
   }, {});
 
-  return state.set('crimesFilteredByDistrict', Map(reducedArray));
+  return state.set('crimesSortedByDistrict', Map(reducedArray));
 }
 
 export default function(state = Map(), action) {

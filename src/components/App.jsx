@@ -88,7 +88,9 @@ export const App = React.createClass({
         </div>
       </div>
       <div className="row fullWidth">
-
+        <div className="small-12 column">
+          <Dashboard {...this.props} />
+        </div>
       </div>
     </div>
   }
@@ -104,7 +106,8 @@ function mapStateToProps(state) {
     districtInfo: state.get('districtInfo').toJSON(),
     allCrimeData: state.get('allCrimeData'),
     crimesFilteredByDistrict: state.get('crimesFilteredByDistrict').toJSON(),
-    crimesFilteredByDate: state.get('crimesFilteredByDate')
+    crimesSortedByDate: state.get('crimesSortedByDate').toJSON(),
+    totalCrimesByDate: state.get('totalCrimesByDate').toJSON()
   };
 }
 
@@ -112,7 +115,5 @@ export const AppContainer = connect(mapStateToProps, actionCreators)(App);
 
 
 /*
-<div className="small-12 column">
-          <Dashboard {...this.props} />
-        </div>
+
 */
