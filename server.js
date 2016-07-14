@@ -4,7 +4,8 @@ var express =       require('express'),
     mongoose =      require('mongoose'),
     db =            require('./models'),
     sequelize =     require('sequelize'),
-    config =        require('./config');
+    config =        require('./config'),
+    jsonfile =      require('jsonfile');
 
 //mongodb://127.0.0.1:27017/podcast
 mongoose.connect('mongodb://127.0.0.1:27017/dc-redux');
@@ -71,6 +72,8 @@ app.route('/district')
 
 app.get('/senatecrimequery', function (req, res) {
 
+  var file = '/tmp/senate-data.json';
+
   db.crime.sequelize.query(
     'SELECT ' +
       '"type", "senateDistrict" AS "district", COUNT("crime"."type") AS "count", ' +
@@ -83,6 +86,10 @@ app.get('/senatecrimequery', function (req, res) {
       'to_timestamp'
   )
   .then(function (results) {
+    // console.log("writing results....");
+    // jsonfile.writeFile(file, results, function (err) {
+    //   console.error('err', err);
+    // });
     res.json(results);
   });
 });

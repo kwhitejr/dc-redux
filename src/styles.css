@@ -6,7 +6,7 @@ body {
   background-color: #cde7f0;
 }
 
-.row {
+.row, .columns {
   background-color: white;
 }
 
@@ -79,10 +79,24 @@ p {
 }
 
 #map {
-/*  height: 100%;
-*/  width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .graph {
   margin: 30px;
 }
+
+.dashboard text {
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+/*
+#b2182b
+#ef8a62
+#fddbc7
+#d1e5f0
+#67a9cf
+#2166ac
+*/

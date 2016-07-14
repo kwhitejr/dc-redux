@@ -46,6 +46,7 @@ export const App = React.createClass({
         this.props.setSenateCrimeData(senateCrimeData);
         this.props.setAllCrimeData('senate');
         this.props.filterByCrimeType();
+        this.props.sortCrimesByDate();
         this.setState({
           isFetching: false
         })
@@ -75,20 +76,18 @@ export const App = React.createClass({
     return <div>
       <Header />
       <div className="row fullWidth">
-        <div className="small-3 large-3 columns leftsidebar">
-          <Filter {...this.props} />
-          <hr />
-          <District {...this.props} />
+        <div className="small-3 large-3 columns leftsidebar" >
+          <div>
+            <Filter {...this.props} />
+            <hr />
+            <District {...this.props} />
+          </div>
         </div>
         <div className="small-9 large-9 columns">
           {this.state.isFetching
             ? <Circle size={50} color="blue"/>
             : <Map {...this.props} />
           }
-        </div>
-      </div>
-      <div className="row fullWidth">
-        <div className="small-12 column">
           <Dashboard {...this.props} />
         </div>
       </div>
