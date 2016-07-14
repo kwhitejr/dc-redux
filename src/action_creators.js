@@ -5,6 +5,14 @@ export function setState(state) {
   };
 }
 
+export function setWhatever(label, data) {
+  return {
+    type: 'SET_WHATEVER',
+    label,
+    data
+  };
+}
+
 export function setAllCrimeData(chamber) {
   return {
     type: 'SET_ALL_CRIME_DATA',
@@ -43,7 +51,7 @@ export function toggleCrime(crime) {
 export function setChamberAndCrimeData(chamber) {
   return (dispatch) => {
 
-    dispatch(setChamber(chamber));
+    dispatch(setWhatever('chamber', chamber));
 
     dispatch(setAllCrimeData(chamber));
 

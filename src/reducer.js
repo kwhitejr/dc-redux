@@ -18,26 +18,18 @@ function setAllCrimeData(state, chamber) {
     default:
       return state.set('allCrimeData', []);
   }
-  // return state.set('allCrimeData', data);
 }
 
-function setSenateCrimeData(state, data) {
-  return state.set('senateCrimeData', data);
+function setWhatever(state, label, data) {
+  return state.set(label, data);
 }
 
-function setHouseCrimeData(state, data) {
-  return state.set('houseCrimeData', data);
-}
 /******************************/
 
 function getCrime(state, name) {
   return state.get('crimeFilters').findIndex(
     (crime) => crime.get('name') === name
   );
-}
-
-function setChamber(state, newChamber) {
-  return state.set('chamber', newChamber);
 }
 
 function toggleCrime(state, crime) {
@@ -194,6 +186,9 @@ export default function(state = Map(), action) {
     return setSenateCrimeData(state, action.data);
   case 'SET_HOUSE_CRIME_DATA':
     return setHouseCrimeData(state, action.data);
+
+  case 'SET_WHATEVER':
+    return setWhatever(state, action.label, action.data);
 
     // this should be a Set_Chamber
   case 'SET_CHAMBER':

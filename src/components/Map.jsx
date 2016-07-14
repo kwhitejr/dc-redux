@@ -98,8 +98,10 @@ export default React.createClass({
       method: "GET",
       dataType: "json",
       success: (data) => {
-        newState[label] = data;
-        this.setState(newState);
+        if (this.isMounted()) {
+          newState[label] = data;
+          this.setState(newState);
+        }
       },
       failure: function (err) {
         // console.log(err);

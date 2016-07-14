@@ -1,6 +1,4 @@
 import React from 'react';
-const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
-
 
 export const BarChart = React.createClass({
 
@@ -113,6 +111,7 @@ const DataSeries = React.createClass({
   },
 
   render() {
+
     let { barHeight, matrix, colors, xScale } = this.props;
     let barsTotal = matrix.map( (datum, index) => {
 

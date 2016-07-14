@@ -83,8 +83,13 @@ p {
   width: 100%;
 }
 
-.graph {
-  margin: 30px;
+.dashboard .addBar-enter {
+  opacity: 0.01;
+}
+
+.dashboard .addBar-enter.addBar-enter-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }
 
 .dashboard text {

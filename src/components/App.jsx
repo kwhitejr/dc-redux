@@ -43,7 +43,7 @@ export const App = React.createClass({
       dataType: "json",
       success: (data) => {
         senateCrimeData = data[0];
-        this.props.setSenateCrimeData(senateCrimeData);
+        this.props.setWhatever('senateCrimeData', senateCrimeData);
         this.props.setAllCrimeData('senate');
         this.props.filterByCrimeType();
         this.props.sortCrimesByDate();
@@ -64,7 +64,7 @@ export const App = React.createClass({
       dataType: "json",
       success: (data) => {
         houseCrimeData = data[0];
-        this.props.setHouseCrimeData(houseCrimeData);
+        this.props.setWhatever('houseCrimeData', houseCrimeData);
       },
       failure: function (err) {
         console.log(err);
