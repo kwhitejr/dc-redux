@@ -45,6 +45,8 @@ export const App = React.createClass({
         senateCrimeData = data[0];
         this.props.setWhatever('senateCrimeData', senateCrimeData);
         this.props.setAllCrimeData('senate');
+        // console.log("senate crime", this.props.senateCrimeData);
+        // console.log("all crime", this.props.allCrimeData);
         this.props.filterByCrimeType();
         this.props.sortCrimesByDate();
         this.setState({
@@ -85,7 +87,10 @@ export const App = React.createClass({
         </div>
         <div className="small-9 large-9 columns">
           {this.state.isFetching
-            ? <Circle size={50} color="blue"/>
+            ? <div>
+                <h2>Booting up the map...</h2>
+                <Circle size={50} color="gray"/>
+              </div>
             : <Map {...this.props} />
           }
           <Dashboard {...this.props} />
@@ -106,7 +111,8 @@ function mapStateToProps(state) {
     allCrimeData: state.get('allCrimeData'),
     crimesFilteredByDistrict: state.get('crimesFilteredByDistrict').toJSON(),
     crimesSortedByDate: state.get('crimesSortedByDate').toJSON(),
-    totalCrimesByDate: state.get('totalCrimesByDate').toJSON()
+    totalCrimesByDate: state.get('totalCrimesByDate').toJSON(),
+    d3colors: state.get('d3colors').toJSON()
   };
 }
 
